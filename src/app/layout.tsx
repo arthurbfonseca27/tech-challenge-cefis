@@ -1,6 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { IoMenu } from 'react-icons/io5'
+import {
+  MdOutlinePendingActions,
+  MdAccountTree,
+  MdBugReport,
+} from 'react-icons/md'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +22,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="flex h-fit flex-row justify-between bg-[#323232]">
+          <div className="flex flex-row items-center gap-6 py-4 pl-10 text-xl text-white">
+            <IoMenu size={36} color="#FFFFFF" />
+            <p className="font-medium">Tasks</p>
+          </div>
+          <div className="flex flex-row items-center gap-6 pr-10">
+            <MdOutlinePendingActions size={36} color="#FFFFFF" />
+            <MdAccountTree size={36} color="#FFFFFF" />
+            <MdBugReport size={36} color="#FFFFFF" />
+          </div>
+        </div>
+        {children}
+      </body>
     </html>
   )
 }
