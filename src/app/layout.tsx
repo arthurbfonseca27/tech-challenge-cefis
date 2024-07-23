@@ -7,6 +7,7 @@ import {
   MdAccountTree,
   MdBugReport,
 } from 'react-icons/md'
+import { Providers } from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,18 +24,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex h-fit flex-row justify-between bg-[#323232]">
-          <div className="flex flex-row items-center gap-6 py-4 pl-10 text-xl text-white">
-            <IoMenu size={36} color="#FFFFFF" />
-            <p className="font-medium">Tasks</p>
+        <Providers>
+          <div className="flex h-fit w-screen flex-row justify-between bg-[#323232]">
+            <div className="flex flex-row items-center gap-6 py-4 pl-10 text-xl text-white">
+              <IoMenu size={36} color="#FFFFFF" />
+              <p className="font-medium">Tasks</p>
+            </div>
+            <div className="flex flex-row items-center gap-6 pr-10">
+              <MdOutlinePendingActions size={36} color="#FFFFFF" />
+              <MdAccountTree size={36} color="#FFFFFF" />
+              <MdBugReport size={36} color="#FFFFFF" />
+            </div>
           </div>
-          <div className="flex flex-row items-center gap-6 pr-10">
-            <MdOutlinePendingActions size={36} color="#FFFFFF" />
-            <MdAccountTree size={36} color="#FFFFFF" />
-            <MdBugReport size={36} color="#FFFFFF" />
-          </div>
-        </div>
-        {children}
+          {children}
+        </Providers>
       </body>
     </html>
   )
