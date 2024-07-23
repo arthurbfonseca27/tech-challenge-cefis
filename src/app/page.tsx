@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Input,
   InputGroup,
@@ -11,8 +13,34 @@ import {
 import { IoIosSearch } from 'react-icons/io'
 import { IoChevronDown } from 'react-icons/io5'
 import CardComponent from '@/components/CardComponent'
+import React, { useEffect, useState } from 'react'
+
+interface Task {
+  priority: number
+  taskName: string
+  taskTag: {
+    label: string
+    value: string
+  }
+  assignees: {
+    name: string
+    avatar: string
+  }[]
+  projectName: string
+  deadline: string
+}
 
 export default function Home() {
+  const [tasks, setTasks] = useState<Task[]>([])
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api')
+      .then((response) => response.json())
+      .then((data) => setTasks(data))
+  }, [])
+
+  console.log(tasks)
+
   return (
     <div className="bg-white">
       <div className="flex flex-col gap-6 px-20 pt-10">
@@ -102,15 +130,14 @@ export default function Home() {
           <div className="h-fit w-full text-base font-medium">
             <Box bg="#F5F5F5" color="black" borderRadius="lg" px="3" pb="3">
               <p className="py-4">Não iniciada</p>
-              {/* CARD */}
-              <CardComponent priority={1} />
+              {tasks.map((task, index) => (
+                <CardComponent key={index} {...task} />
+              ))}
             </Box>
           </div>
           <div className="h-fit w-full text-base font-medium">
             <Box bg="#C9F5FF66" color="black" borderRadius="lg" px="3">
               <p className="py-4">Iniciada</p>
-              {/* CARD */}
-              <CardComponent priority={2} />
               <Box position="relative" py="8">
                 <Divider color="#394A5333" />
                 <AbsoluteCenter px="4" bg="#e9fbff">
@@ -135,8 +162,6 @@ export default function Home() {
           <div className="h-fit w-full text-base font-medium">
             <Box bg="#D8FDD266" color="black" borderRadius="lg" px="3" pb="3">
               <p className="py-4">Concluída</p>
-              {/* CARD */}
-              <CardComponent priority={3} />
             </Box>
           </div>
         </div>
