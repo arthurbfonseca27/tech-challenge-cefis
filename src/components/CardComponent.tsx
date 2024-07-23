@@ -32,7 +32,10 @@ const CardComponent: React.FC<CardComponentProps> = ({
   deadline,
 }) => {
   return (
-    <div className="mb-4 flex h-fit w-full flex-row overflow-hidden rounded-lg border-transparent bg-[#FFFFFF]">
+    <div
+      draggable="true"
+      className="mb-4 flex h-fit w-full cursor-grab flex-row overflow-hidden rounded-lg border-transparent bg-[#FFFFFF] active:cursor-grabbing"
+    >
       <PriorityComponent priority={priority} />
       <div className="flex w-full flex-col px-4 pt-4">
         <div className="flex flex-row justify-between">
