@@ -1,86 +1,116 @@
-import React from 'react'
-import PriorityComponent from './PriorityComponent'
-import { Tag, Avatar } from '@chakra-ui/react'
-import { FaArrowRight } from 'react-icons/fa6'
-import { LuCalendar } from 'react-icons/lu'
-import { MdOutlineInventory2, MdOutlineTimer } from 'react-icons/md'
-import { TbMinusVertical } from 'react-icons/tb'
+import React, { useState } from 'react'
+import { Id, Task } from '@/types'
+import { MdDeleteOutline } from 'react-icons/md'
+import { IconButton } from '@chakra-ui/react'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
-interface Assignee {
-  name: string
-  avatar: string
+interface Props {
+  task: Task
+  deleteTask: (id: Id) => void
+  updateTask: (id: Id, content: string) => void
 }
 
-interface CardComponentProps {
-  priority: number
-  taskName: string
-  taskTag: {
-    label: string
-    value: string
+const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
+  const [mouseIsOver, setMouseIsOver] = useState(false)
+  const [editMode, setEditMode] = useState(false)
+
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: task.id,
+    data: {
+      type: 'Task',
+      task,
+    },
+    disabled: editMode,
+  })
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
   }
-  assignees: Assignee[]
-  projectName: string
-  deadline: string
-}
 
-const CardComponent: React.FC<CardComponentProps> = ({
-  priority,
-  taskName,
-  taskTag,
-  assignees,
-  projectName,
-  deadline,
-}) => {
-  return (
-    <div
-      draggable="true"
-      className="mb-4 flex h-fit w-full cursor-grab flex-row overflow-hidden rounded-lg border-transparent bg-[#FFFFFF] active:cursor-grabbing"
-    >
-      <PriorityComponent priority={priority} />
-      <div className="flex w-full flex-col px-4 pt-4">
-        <div className="flex flex-row justify-between">
-          <p>{taskName}</p>
-          <Tag bg="#F5F5F5">
-            <div className="flex flex-row">
-              <span className="pr-2 font-bold text-[#00000099]">
-                {taskTag.label}
-              </span>
-              <span className="#000000 pr-2">{taskTag.value}</span>
-            </div>
-          </Tag>
-        </div>
-        <div className="flex flex-row items-center pt-4">
-          {assignees.map((assignee, index) => (
-            <React.Fragment key={index}>
-              <Avatar size="xs" name={assignee.name} src={assignee.avatar} />
-              <p className="px-2 font-medium text-[#00000099]">
-                {assignee.name}
-              </p>
-              {index < assignees.length - 1 && (
-                <>
-                  <div className="pr-2">
-                    <FaArrowRight />
-                  </div>
-                  <TbMinusVertical color="#67676733" />
-                </>
-              )}
-            </React.Fragment>
-          ))}
-          <div className="flex flex-row items-center pl-2">
-            <MdOutlineInventory2 color="#00000099" />
-            <p className="pl-2 font-normal text-[#00000099]">{projectName}</p>
-          </div>
-        </div>
-        <div className="flex flex-row items-center justify-between py-5">
-          <div className="flex flex-row items-center gap-4">
-            <LuCalendar color="#00000099" />
-            <p className="font-normal text-[#00000099]">
-              Prazo máximo: {deadline}
-            </p>
-          </div>
-          <MdOutlineTimer size={24} color="#67676733" />
+  const toggleEditMode = () => {
+    setEditMode((prev) => !prev)
+    setMouseIsOver(false)
+  }
+
+  if (isDragging) {
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="task flex cursor-grab flex-row items-center justify-between rounded-xl border-2 border-[#00A3FF] border-black p-8 opacity-30"
+      />
+    )
+  }
+
+  if (editMode) {
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
+        className="flex cursor-grab flex-row items-center justify-between rounded-xl border-2 border-black bg-[#394A53] p-8 hover:ring-[#00A3FF]"
+      >
+        <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
+          <textarea
+            className="h-[90%] w-full resize-none rounded border-none bg-transparent text-black focus:outline-none"
+            value={task.content}
+            autoFocus
+            placeholder="Conteúdo"
+            onBlur={toggleEditMode}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && e.shiftKey) {
+                toggleEditMode()
+              }
+            }}
+            onChange={(e) => updateTask(task.id, e.target.value)}
+          ></textarea>
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      onClick={toggleEditMode}
+      onMouseEnter={() => {
+        setMouseIsOver(true)
+      }}
+      onMouseLeave={() => {
+        setMouseIsOver(false)
+      }}
+      className="task flex cursor-grab flex-row items-center justify-between rounded-xl border-2 border-black p-8 hover:ring-[#00A3FF]"
+    >
+      <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
+        {task.content}
+      </p>
+      {mouseIsOver && (
+        <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
+          <IconButton
+            onClick={() => {
+              deleteTask(task.id)
+            }}
+            variant="solid"
+            bg="transparent"
+            _hover={{ bg: 'transparent', color: '#800000' }}
+            aria-label="Delete Column"
+            icon={<MdDeleteOutline size={24} />}
+          />
+        </div>
+      )}
     </div>
   )
 }

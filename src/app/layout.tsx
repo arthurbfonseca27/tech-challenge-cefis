@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <div className="flex h-fit w-screen flex-row justify-between bg-[#323232]">
+          <div className="flex h-fit min-w-full flex-row justify-between bg-[#323232] bg-cover bg-fixed bg-no-repeat">
             <div className="flex flex-row items-center gap-6 py-4 pl-10 text-xl text-white">
               <IoMenu size={36} color="#FFFFFF" />
               <p className="font-medium">Tasks</p>
