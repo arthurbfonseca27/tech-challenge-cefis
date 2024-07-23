@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server'
 export async function GET() {
   return NextResponse.json([
     {
+      id: 1,
+      completed: false,
+      column: 'Não iniciada',
       priority: 1,
       taskName: 'Implement login feature',
       taskTag: {
@@ -23,6 +26,9 @@ export async function GET() {
       deadline: '7 days',
     },
     {
+      id: 2,
+      completed: false,
+      column: 'Iniciadas',
       priority: 2,
       taskName: 'Design homepage layout',
       taskTag: {
@@ -43,6 +49,9 @@ export async function GET() {
       deadline: '14 days',
     },
     {
+      id: 3,
+      completed: true,
+      column: 'Concluídas',
       priority: 3,
       taskName: 'Setup CI/CD pipeline',
       taskTag: {

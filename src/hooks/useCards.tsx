@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 
-interface Task {
+interface Card {
+  id: string
+  completed: boolean
   priority: number
   taskName: string
   taskTag: {
@@ -16,7 +18,7 @@ interface Task {
 }
 
 const useTask = () => {
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, setTasks] = useState<Card[]>([])
 
   useEffect(() => {
     fetch('http://localhost:3000/api')

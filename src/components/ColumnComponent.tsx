@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import React from 'react'
 import CardComponent from './CardComponent'
-import useTask from '@/hooks/useTask'
+import useTask from '../hooks/useCards'
 
 interface ColumnComponentProps {
   bg: string

@@ -3,8 +3,8 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { IoIosSearch } from 'react-icons/io'
 import React from 'react'
-import ColumnComponent from '@/components/ColumnComponent'
 import SelectComponent from '@/components/SelectComponent'
+import KanbanBoardComponent from '@/components/KanbanBoardComponent'
 
 export default function Home() {
   return (
@@ -40,11 +40,7 @@ export default function Home() {
             options={['Opção 1', 'Opção 2', 'Opção 3']}
           />
         </div>
-        <div className="flex flex-row justify-center gap-3">
-          <ColumnComponent bg="#F5F5F5" title="Não iniciada" />
-          <ColumnComponent bg="#C9F5FF66" title="Iniciadas" />
-          <ColumnComponent bg="#D8FDD266" title="Concluídas" />
-        </div>
+        <KanbanBoardComponent />
       </div>
     </div>
   )
