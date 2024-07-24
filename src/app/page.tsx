@@ -2,20 +2,11 @@
 
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { IoIosSearch } from 'react-icons/io'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import SelectComponent from '@/components/SelectComponent'
 import KanbanBoardComponent from '@/components/KanbanBoardComponent'
-import { Task } from '@/types'
 
 export default function Home() {
-  const [tasks, setTasks] = useState<Task[]>([])
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api')
-      .then((response) => response.json())
-      .then((data) => setTasks(data))
-  }, [])
-
   return (
     <div className="bg-white">
       <div className="flex flex-col gap-6 px-20 pt-10">
@@ -49,7 +40,7 @@ export default function Home() {
             options={['Opção 1', 'Opção 2', 'Opção 3']}
           />
         </div>
-        <KanbanBoardComponent tasksFetched={tasks} />
+        <KanbanBoardComponent />
       </div>
     </div>
   )

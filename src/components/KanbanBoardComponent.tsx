@@ -32,13 +32,7 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
 
-interface KanbanBoardComponentProps {
-  tasksFetched: Task[]
-}
-
-const KanbanBoardComponent: React.FC<KanbanBoardComponentProps> = ({
-  tasksFetched,
-}) => {
+const KanbanBoardComponent = () => {
   const defaultColumns: Column[] = [
     { id: generateId(), title: 'Não Iniciado', color: '#C9F5FF66' },
     { id: generateId(), title: 'Iniciadas', color: '#D8FDD266' },
@@ -105,9 +99,9 @@ const KanbanBoardComponent: React.FC<KanbanBoardComponentProps> = ({
     },
   ]
 
-  console.log(tasksFetched)
+  console.log(defaultTasks)
 
-  const [tasks, setTasks] = useState<Task[]>(tasksFetched)
+  const [tasks, setTasks] = useState<Task[]>(defaultTasks)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = React.useState('')
   const [color, setColor] = React.useState('#C9F5FF66')
@@ -358,29 +352,32 @@ const KanbanBoardComponent: React.FC<KanbanBoardComponentProps> = ({
           </ModalContent>
         </Modal>
       </div>
-      {createPortal(
-        <DragOverlay>
-          {activeColumn && (
-            <ColumnComponent
-              column={activeColumn}
-              deleteColumn={deleteColumn}
-              updateColumn={updateColumn}
-              createTask={createTask}
-              deleteTask={deleteTask}
-              updateTask={updateTask}
-              tasks={tasks.filter((task) => task.columnId === activeColumn.id)}
-            />
-          )}
-          {activeTask && (
-            <CardComponent
-              task={activeTask}
-              deleteTask={deleteTask}
-              updateTask={updateTask}
-            />
-          )}
-        </DragOverlay>,
-        document.body,
-      )}
+      {typeof window !== 'undefined' &&
+        createPortal(
+          <DragOverlay>
+            {activeColumn && (
+              <ColumnComponent
+                column={activeColumn}
+                deleteColumn={deleteColumn}
+                updateColumn={updateColumn}
+                createTask={createTask}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+                tasks={tasks.filter(
+                  (task) => task.columnId === activeColumn.id,
+                )}
+              />
+            )}
+            {activeTask && (
+              <CardComponent
+                task={activeTask}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+              />
+            )}
+          </DragOverlay>,
+          document.body,
+        )}
     </DndContext>
   )
 }
