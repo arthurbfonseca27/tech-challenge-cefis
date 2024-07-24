@@ -1,6 +1,6 @@
 'use-client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ColumnComponent from './ColumnComponent'
 import {
   Button,
@@ -31,77 +31,32 @@ import {
 import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
+import defaultTasks from '../hooks/useTasks'
+import defaultColumns from '../hooks/useColumns'
 
 const KanbanBoardComponent = () => {
-  const defaultColumns: Column[] = [
-    { id: generateId(), title: 'Não Iniciado', color: '#C9F5FF66' },
-    { id: generateId(), title: 'Iniciadas', color: '#D8FDD266' },
-    { id: generateId(), title: 'Concluído', color: '#F5F5F5' },
-  ]
-  const [columns, setColumns] = useState<Column[]>(defaultColumns)
-  const defaultTasks: Task[] = [
-    {
-      id: generateId(),
-      columnId: defaultColumns[0].id,
-      priority: 1, // Prioridade padrão
-      taskName: 'Task 1', // Nome da tarefa
-      taskTag: { label: 'Label 1', value: 'Value 1' }, // Tag da tarefa
-      requester: {
-        name: 'Requester 1', // Nome do solicitante
-        avatar: 'https://example.com/requester-avatar-1.jpg', // Avatar do solicitante
-      },
-      executer: [
-        {
-          name: 'Executer 1', // Nome do executor
-          avatar: 'https://example.com/executer-avatar-1.jpg', // Avatar do executor
-        },
-      ],
-      projectName: 'Project 1', // Nome do projeto
-      deadline: '2024-12-31', // Prazo da tarefa
-    },
-    {
-      id: generateId(),
-      columnId: defaultColumns[1].id,
-      priority: 2, // Prioridade padrão
-      taskName: 'Task 2', // Nome da tarefa
-      taskTag: { label: 'Label 2', value: 'Value 2' }, // Tag da tarefa
-      requester: {
-        name: 'Requester 2', // Nome do solicitante
-        avatar: 'https://example.com/requester-avatar-2.jpg', // Avatar do solicitante
-      },
-      executer: [
-        {
-          name: 'Executer 2', // Nome do executor
-          avatar: 'https://example.com/executer-avatar-2.jpg', // Avatar do executor
-        },
-      ],
-      projectName: 'Project 2', // Nome do projeto
-      deadline: '2024-11-30', // Prazo da tarefa
-    },
-    {
-      id: generateId(),
-      columnId: defaultColumns[2].id,
-      priority: 3, // Prioridade padrão
-      taskName: 'Task 3', // Nome da tarefa
-      taskTag: { label: 'Label 3', value: 'Value 3' }, // Tag da tarefa
-      requester: {
-        name: 'Requester 3', // Nome do solicitante
-        avatar: 'https://example.com/requester-avatar-3.jpg', // Avatar do solicitante
-      },
-      executer: [
-        {
-          name: 'Executer 3', // Nome do executor
-          avatar: 'https://example.com/executer-avatar-3.jpg', // Avatar do executor
-        },
-      ],
-      projectName: 'Project 3', // Nome do projeto
-      deadline: '2024-10-31', // Prazo da tarefa
-    },
-  ]
+  // Fetching default columns
+  useEffect(() => {
+    const fetchColumns = async () => {
+      const defaultFetchedTasks = await defaultColumns()
+      setColumns(defaultFetchedTasks)
+    }
 
-  console.log(defaultTasks)
+    fetchColumns()
+  }, [])
 
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks)
+  // Fetching default tasks
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const defaultFetchedTasks = await defaultTasks()
+      setTasks(defaultFetchedTasks)
+    }
+
+    fetchTasks()
+  }, [])
+
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [columns, setColumns] = useState<Column[]>([])
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = React.useState('')
   const [color, setColor] = React.useState('#C9F5FF66')
