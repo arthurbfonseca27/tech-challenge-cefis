@@ -1,3 +1,5 @@
+'use-client'
+
 import { Box, Select } from '@chakra-ui/react'
 
 interface SelectComponentProps {

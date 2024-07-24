@@ -1,3 +1,5 @@
+'use-client'
+
 import React, { useMemo, useState } from 'react'
 import ColumnComponent from './ColumnComponent'
 import {
@@ -30,7 +32,13 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
 
-const KanbanBoardComponent = () => {
+interface KanbanBoardComponentProps {
+  tasksFetched: Task[]
+}
+
+const KanbanBoardComponent: React.FC<KanbanBoardComponentProps> = ({
+  tasksFetched,
+}) => {
   const defaultColumns: Column[] = [
     { id: generateId(), title: 'Não Iniciado', color: '#C9F5FF66' },
     { id: generateId(), title: 'Iniciadas', color: '#D8FDD266' },
@@ -38,11 +46,68 @@ const KanbanBoardComponent = () => {
   ]
   const [columns, setColumns] = useState<Column[]>(defaultColumns)
   const defaultTasks: Task[] = [
-    { id: generateId(), columnId: defaultColumns[0].id, content: 'Task 1' },
-    { id: generateId(), columnId: defaultColumns[1].id, content: 'Task 2' },
-    { id: generateId(), columnId: defaultColumns[2].id, content: 'Task 3' },
+    {
+      id: generateId(),
+      columnId: defaultColumns[0].id,
+      priority: 1, // Prioridade padrão
+      taskName: 'Task 1', // Nome da tarefa
+      taskTag: { label: 'Label 1', value: 'Value 1' }, // Tag da tarefa
+      requester: {
+        name: 'Requester 1', // Nome do solicitante
+        avatar: 'https://example.com/requester-avatar-1.jpg', // Avatar do solicitante
+      },
+      executer: [
+        {
+          name: 'Executer 1', // Nome do executor
+          avatar: 'https://example.com/executer-avatar-1.jpg', // Avatar do executor
+        },
+      ],
+      projectName: 'Project 1', // Nome do projeto
+      deadline: '2024-12-31', // Prazo da tarefa
+    },
+    {
+      id: generateId(),
+      columnId: defaultColumns[1].id,
+      priority: 2, // Prioridade padrão
+      taskName: 'Task 2', // Nome da tarefa
+      taskTag: { label: 'Label 2', value: 'Value 2' }, // Tag da tarefa
+      requester: {
+        name: 'Requester 2', // Nome do solicitante
+        avatar: 'https://example.com/requester-avatar-2.jpg', // Avatar do solicitante
+      },
+      executer: [
+        {
+          name: 'Executer 2', // Nome do executor
+          avatar: 'https://example.com/executer-avatar-2.jpg', // Avatar do executor
+        },
+      ],
+      projectName: 'Project 2', // Nome do projeto
+      deadline: '2024-11-30', // Prazo da tarefa
+    },
+    {
+      id: generateId(),
+      columnId: defaultColumns[2].id,
+      priority: 3, // Prioridade padrão
+      taskName: 'Task 3', // Nome da tarefa
+      taskTag: { label: 'Label 3', value: 'Value 3' }, // Tag da tarefa
+      requester: {
+        name: 'Requester 3', // Nome do solicitante
+        avatar: 'https://example.com/requester-avatar-3.jpg', // Avatar do solicitante
+      },
+      executer: [
+        {
+          name: 'Executer 3', // Nome do executor
+          avatar: 'https://example.com/executer-avatar-3.jpg', // Avatar do executor
+        },
+      ],
+      projectName: 'Project 3', // Nome do projeto
+      deadline: '2024-10-31', // Prazo da tarefa
+    },
   ]
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks)
+
+  console.log(tasksFetched)
+
+  const [tasks, setTasks] = useState<Task[]>(tasksFetched)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = React.useState('')
   const [color, setColor] = React.useState('#C9F5FF66')
@@ -96,7 +161,19 @@ const KanbanBoardComponent = () => {
     const newTask: Task = {
       id: generateId(),
       columnId,
-      content: `Task ${tasks.length + 1}`,
+      priority: 3,
+      taskName: `Task ${tasks.length + 1}`,
+      taskTag: {
+        label: '',
+        value: '',
+      },
+      requester: {
+        name: '',
+        avatar: '',
+      },
+      executer: [],
+      projectName: '',
+      deadline: '',
     }
 
     setTasks([...tasks, newTask])
