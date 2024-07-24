@@ -76,7 +76,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
         <div
           {...attributes}
           {...listeners}
-          className="flex flex-row items-center justify-between"
+          className="flex cursor-grab flex-row items-center justify-between"
         >
           <div
             onClick={() => {
@@ -130,7 +130,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             </div>
           </div>
         </div>
-        <div className="flex flex-grow flex-col gap-4 overscroll-y-contain p-2">
+        <div className="flex flex-grow flex-col gap-4 overscroll-y-contain py-2">
           <SortableContext items={tasksIds}>
             {tasks.map((task) => (
               <CardComponent

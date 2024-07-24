@@ -58,7 +58,7 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
       <div
         ref={setNodeRef}
         style={style}
-        className="task flex cursor-grab flex-row items-center justify-between rounded-xl border-2 border-[#FFFFFF] bg-[#FFFFFF] p-16 opacity-50"
+        className="task border-[# ] flex cursor-grab flex-row items-center justify-between rounded-xl border-2 bg-[#FFFFFF] p-16 opacity-50"
       />
     )
   }
@@ -104,7 +104,7 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
       onMouseLeave={() => {
         setMouseIsOver(false)
       }}
-      className="task hover:ring-[#00A3FF]mb-4 flex h-fit cursor-grab flex-row items-center justify-between overflow-hidden rounded-lg border-black border-transparent bg-[#FFFFFF] active:cursor-grabbing"
+      className="task mb-4 flex h-fit cursor-grab flex-row items-center justify-between overflow-hidden rounded-xl border-black border-transparent bg-[#FFFFFF] hover:border hover:border-[#00A3FF] active:cursor-grabbing"
     >
       <div className="flex w-full flex-row">
         <PriorityComponent priority={task.priority} />
@@ -122,20 +122,18 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
                   <span className="font-normal">{task.taskTag.value}</span>
                 </div>
               </Tag>
-              {mouseIsOver && (
-                <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
-                  <IconButton
-                    onClick={() => {
-                      deleteTask(task.id)
-                    }}
-                    variant="solid"
-                    bg="transparent"
-                    _hover={{ bg: 'transparent', color: '#800000' }}
-                    aria-label="Delete Column"
-                    icon={<MdDeleteOutline size={24} />}
-                  />
-                </div>
-              )}
+              <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
+                <IconButton
+                  onClick={() => {
+                    deleteTask(task.id)
+                  }}
+                  variant="solid"
+                  bg="transparent"
+                  _hover={{ bg: 'transparent', color: '#800000' }}
+                  aria-label="Delete Column"
+                  icon={<MdDeleteOutline size={24} />}
+                />
+              </div>
             </div>
           </div>
           <div className="flex flex-row items-center gap-x-2 pt-4 text-sm text-[#00000099]">

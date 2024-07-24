@@ -33,6 +33,7 @@ import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
 import defaultTasks from '../hooks/useTasks'
 import defaultColumns from '../hooks/useColumns'
+import SearchComponent from './SearchComponet'
 
 const KanbanBoardComponent = () => {
   // Fetching default columns
@@ -234,7 +235,18 @@ const KanbanBoardComponent = () => {
       onDragEnd={onDragEnd}
       onDragOver={onDragOver}
     >
-      <div className="flex flex-row gap-4">
+      <div className="pr-20">
+        <Button
+          leftIcon={<IoIosAdd />}
+          variant="outline"
+          borderColor="#67676733"
+          onClick={onOpen}
+        >
+          Adicionar coluna
+        </Button>
+      </div>
+      <SearchComponent />
+      <div className="flex flex-row">
         <div className="flex w-fit flex-row justify-center gap-3">
           <SortableContext items={columnsId}>
             {columns.map((column) => (
@@ -250,16 +262,6 @@ const KanbanBoardComponent = () => {
               />
             ))}
           </SortableContext>
-        </div>
-        <div className="pr-20">
-          <Button
-            leftIcon={<IoIosAdd />}
-            variant="outline"
-            borderColor="#67676733"
-            onClick={onOpen}
-          >
-            Adicionar coluna
-          </Button>
         </div>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />

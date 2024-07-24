@@ -47,9 +47,9 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-[#00A3FF] rounded-xl;
+  @apply bg-[#323232] rounded-xl;
 }
 
 .task > ::-webkit-scrollbar-thumb {
-  @apply bg-[#00A3FF] rounded-xl
+  @apply bg-[#323232] rounded-xl
 }
