@@ -10,12 +10,14 @@ import {
   Avatar,
   TagLabel,
   TagLeftIcon,
+  AvatarGroup,
 } from '@chakra-ui/react'
 import { FaArrowRightLong } from 'react-icons/fa6'
 import { RxDividerVertical } from 'react-icons/rx'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import PriorityComponent from './PriorityComponent'
+import { exec } from 'child_process'
 
 interface Props {
   task: Task
@@ -24,7 +26,6 @@ interface Props {
 }
 
 const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
-  const [mouseIsOver, setMouseIsOver] = useState(false)
   const [editMode, setEditMode] = useState(false)
 
   const {
@@ -50,7 +51,6 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
 
   const toggleEditMode = () => {
     setEditMode((prev) => !prev)
-    setMouseIsOver(false)
   }
 
   if (isDragging) {
@@ -98,22 +98,14 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
       {...attributes}
       {...listeners}
       onClick={toggleEditMode}
-      onMouseEnter={() => {
-        setMouseIsOver(true)
-      }}
-      onMouseLeave={() => {
-        setMouseIsOver(false)
-      }}
       className="task mb-4 flex h-fit cursor-grab flex-row items-center justify-between overflow-hidden rounded-xl border-black border-transparent bg-[#FFFFFF] hover:border hover:border-[#00A3FF] active:cursor-grabbing"
     >
       <div className="flex w-full flex-row">
         <PriorityComponent priority={task.priority} />
-        <div className="flex w-full flex-col py-4 pl-4">
-          <div className="flex w-full flex-row items-center justify-between">
-            <p className="overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
-              {task.taskName}
-            </p>
-            <div className="flex flex-row items-center gap-x-10 pr-4">
+        <div className="flex w-full flex-col py-4 pl-4 pr-6">
+          <div className="flex w-full flex-row items-center justify-between gap-2">
+            <div className="flex w-fit flex-row items-center gap-5">
+              <p className="max-w-56 truncate">{task.taskName}</p>
               <Tag bg="#F5F5F5">
                 <div className="flex w-full flex-row text-sm">
                   <span className="pr-2 font-bold text-[#00000066]">
@@ -122,6 +114,8 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
                   <span className="font-normal">{task.taskTag.value}</span>
                 </div>
               </Tag>
+            </div>
+            <div className="flex flex-row items-center gap-x-10 pr-4">
               <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
                 <IconButton
                   onClick={() => {
@@ -137,22 +131,35 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
             </div>
           </div>
           <div className="flex flex-row items-center gap-x-2 pt-4 text-sm text-[#00000099]">
-            <Avatar
-              name={task.requester.name}
-              src={task.requester.avatar}
-              size="xs"
-            />
-            <p>{task.requester.name}</p>
+            <div className="flex w-fit max-w-24 flex-row items-center gap-x-2">
+              <Avatar
+                name={task.requester.name}
+                src={task.requester.avatar}
+                size="xs"
+              />
+              <p className="max-w-xs truncate">{task.requester.name}</p>
+            </div>
             <FaArrowRightLong color="#BEBEBE" />
-            {task.executer.map((exec, index) => (
-              <div key={index} className="flex flex-row items-center gap-x-2">
-                <Avatar name={exec.name} src={exec.avatar} size="xs" />
-                <p>{exec.name}</p>
-              </div>
-            ))}
+            {task.executer.length > 1 ? (
+              <AvatarGroup size="xs" max={2}>
+                {task.executer.map((exec, index) => (
+                  <Avatar key={index} name={exec.name} src={exec.avatar} />
+                ))}
+              </AvatarGroup>
+            ) : (
+              task.executer.map((exec, index) => (
+                <div
+                  key={index}
+                  className="flex w-fit max-w-24 flex-row items-center gap-x-2"
+                >
+                  <Avatar name={exec.name} src={exec.avatar} size="xs" />
+                  <p className="truncate">{exec.name}</p>
+                </div>
+              ))
+            )}
             <RxDividerVertical color="#67676733" size={20} />
             <MdOutlineInventory2 color="#00000066" />
-            <p>{task.projectName}</p>
+            <p className="max-w-xs truncate">{task.projectName}</p>
           </div>
           <div className="pt-4">
             <Tag borderRadius="full" size="sm">

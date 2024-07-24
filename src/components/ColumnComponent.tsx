@@ -99,7 +99,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
                   }}
                 />
               ) : (
-                column.title
+                <div className="w-fit max-w-80 truncate">{column.title}</div>
               )}
             </p>
           </div>

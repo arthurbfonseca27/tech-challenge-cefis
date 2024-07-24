@@ -14,21 +14,70 @@ export async function GET() {
       priority: 1,
       taskName: 'Implement login feature',
       taskTag: {
-        label: 'DTT',
+        label: 'Auth',
         value: '+1000',
       },
       requester: {
-        name: 'Dan Abrahmov',
-        avatar: 'https://bit.ly/dan-abramov',
+        name: 'Alice Johnson',
+        avatar: 'https://bit.ly/alice-johnson',
       },
       executer: [
         {
-          name: 'Gabriel',
-          avatar: 'https://bit.ly/dan-abramov',
+          name: 'Gabriel Silva',
+          avatar: 'https://bit.ly/gabriel-silva',
         },
       ],
-      projectName: 'New Website',
-      deadline: '7 days',
+      projectName: 'Customer Portal',
+      deadline: '5 days',
+    },
+    {
+      id: generateId(),
+      columnId: 2,
+      priority: 2,
+      taskName: 'Create dashboard layout',
+      taskTag: {
+        label: 'UI/UX',
+        value: '+500',
+      },
+      requester: {
+        name: 'Bob Smith',
+        avatar: 'https://bit.ly/bob-smith',
+      },
+      executer: [
+        {
+          name: 'Mariana Costa',
+          avatar:
+            'https://fastly.picsum.photos/id/64/4326/2884.jpg?hmac=9_SzX666YRpR_fOyYStXpfSiJ_edO3ghlSRnH2w09Kg',
+        },
+        {
+          name: 'Lucas Lima',
+          avatar: 'https://bit.ly/lucas-lima',
+        },
+      ],
+      projectName: 'Analytics Platform',
+      deadline: '10 days',
+    },
+    {
+      id: generateId(),
+      columnId: 3,
+      priority: 3,
+      taskName: 'Optimize database queries',
+      taskTag: {
+        label: 'DB',
+        value: '+300',
+      },
+      requester: {
+        name: 'Charlie Brown',
+        avatar: 'https://bit.ly/charlie-brown',
+      },
+      executer: [
+        {
+          name: 'Isabela Martinss',
+          avatar: 'https://bit.ly/isabela-martins',
+        },
+      ],
+      projectName: 'Inventory System',
+      deadline: '3 days',
     },
   ])
 }
