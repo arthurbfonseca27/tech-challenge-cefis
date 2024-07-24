@@ -102,7 +102,7 @@ const KanbanBoardComponent = () => {
   console.log(defaultTasks)
 
   const [tasks, setTasks] = useState<Task[]>(defaultTasks)
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = React.useState('')
   const [color, setColor] = React.useState('#C9F5FF66')
   const [activeColumn, setActiveColumn] = useState<Column | null>(null)
