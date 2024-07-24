@@ -9,5 +9,20 @@ export type Column = {
 export type Task = {
   id: Id
   columnId: Id
-  content: string
+  priority: number
+  taskName: string
+  taskTag: {
+    label: string
+    value: string
+  }
+  requester: {
+    name: string
+    avatar: string
+  }
+  executer: {
+    name: string
+    avatar: string
+  }[]
+  projectName: string
+  deadline: string
 }

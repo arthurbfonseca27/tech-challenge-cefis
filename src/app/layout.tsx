@@ -10,7 +10,6 @@ import {
   MdBugReport,
 } from 'react-icons/md'
 import { Providers } from './providers'
-import { ColumnProvider } from '../context/ColumnContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,24 +27,22 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-[#FFFFFF]`}>
         <Providers>
-          <ColumnProvider>
-            <div className="flex w-fit flex-col bg-[#323232] bg-fixed bg-no-repeat">
-              <div className="w-screen">
-                <div className="flex h-fit flex-row justify-between bg-[#323232] bg-cover bg-fixed bg-no-repeat px-20">
-                  <div className="flex flex-row items-center gap-6 py-4 text-xl text-white">
-                    <IoMenu size={36} color="#FFFFFF" />
-                    <p className="font-medium">Tasks</p>
-                  </div>
-                  <div className="flex flex-row items-center gap-6 pr-10">
-                    <MdOutlinePendingActions size={36} color="#FFFFFF" />
-                    <MdAccountTree size={36} color="#FFFFFF" />
-                    <MdBugReport size={36} color="#FFFFFF" />
-                  </div>
+          <div className="flex w-fit flex-col bg-[#323232] bg-fixed bg-no-repeat">
+            <div className="w-screen">
+              <div className="flex h-fit flex-row justify-between bg-[#323232] bg-cover bg-fixed bg-no-repeat px-20">
+                <div className="flex flex-row items-center gap-6 py-4 text-xl text-white">
+                  <IoMenu size={36} color="#FFFFFF" />
+                  <p className="font-medium">Tasks</p>
+                </div>
+                <div className="flex flex-row items-center gap-6 pr-10">
+                  <MdOutlinePendingActions size={36} color="#FFFFFF" />
+                  <MdAccountTree size={36} color="#FFFFFF" />
+                  <MdBugReport size={36} color="#FFFFFF" />
                 </div>
               </div>
-              {children}
             </div>
-          </ColumnProvider>
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

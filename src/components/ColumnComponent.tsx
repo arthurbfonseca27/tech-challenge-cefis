@@ -1,3 +1,5 @@
+'use-client'
+
 import { IconButton } from '@chakra-ui/react'
 import React, { useMemo, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'

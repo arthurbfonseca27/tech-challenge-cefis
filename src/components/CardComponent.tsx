@@ -1,3 +1,5 @@
+'use-client'
+
 import React, { useState } from 'react'
 import { Id, Task } from '@/types'
 import { MdDeleteOutline, MdOutlineInventory2 } from 'react-icons/md'
@@ -73,7 +75,7 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
         <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
           <textarea
             className="h-[90%] w-full resize-none rounded border-none bg-transparent text-black focus:outline-none"
-            value={task.content}
+            value={task.taskName}
             autoFocus
             placeholder="Conteúdo"
             onBlur={toggleEditMode}
@@ -105,17 +107,19 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
       className="task hover:ring-[#00A3FF]mb-4 flex h-fit cursor-grab flex-row items-center justify-between overflow-hidden rounded-lg border-black border-transparent bg-[#FFFFFF] active:cursor-grabbing"
     >
       <div className="flex w-full flex-row">
-        <PriorityComponent priority={1} />
+        <PriorityComponent priority={task.priority} />
         <div className="flex w-full flex-col py-4 pl-4">
           <div className="flex w-full flex-row items-center justify-between">
             <p className="overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
-              {task.content}
+              {task.taskName}
             </p>
             <div className="flex flex-row items-center gap-x-10 pr-4">
               <Tag bg="#F5F5F5">
                 <div className="flex w-full flex-row text-sm">
-                  <span className="pr-2 font-bold text-[#00000066]">DTT</span>
-                  <span className="font-normal">+1000</span>
+                  <span className="pr-2 font-bold text-[#00000066]">
+                    {task.taskTag.label}
+                  </span>
+                  <span className="font-normal">{task.taskTag.value}</span>
                 </div>
               </Tag>
               {mouseIsOver && (
@@ -136,26 +140,26 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
           </div>
           <div className="flex flex-row items-center gap-x-2 pt-4 text-sm text-[#00000099]">
             <Avatar
-              name="Dan Abrahmov"
-              src="https://bit.ly/dan-abramov"
+              name={task.requester.name}
+              src={task.requester.avatar}
               size="xs"
             />
-            <p>Lorem</p>
+            <p>{task.requester.name}</p>
             <FaArrowRightLong color="#BEBEBE" />
-            <Avatar
-              name="Dan Abrahmov"
-              src="https://bit.ly/dan-abramov"
-              size="xs"
-            />
-            <p>Gabriel</p>
+            {task.executer.map((exec, index) => (
+              <div key={index} className="flex flex-row items-center gap-x-2">
+                <Avatar name={exec.name} src={exec.avatar} size="xs" />
+                <p>{exec.name}</p>
+              </div>
+            ))}
             <RxDividerVertical color="#67676733" size={20} />
             <MdOutlineInventory2 color="#00000066" />
-            <p>Nome do projeto</p>
+            <p>{task.projectName}</p>
           </div>
           <div className="pt-4">
             <Tag borderRadius="full" size="sm">
               <TagLeftIcon boxSize="12px" as={LuCalendar}></TagLeftIcon>
-              <TagLabel>Prazo máximo: hoje às 12h</TagLabel>
+              <TagLabel>{task.deadline}</TagLabel>
             </Tag>
           </div>
         </div>

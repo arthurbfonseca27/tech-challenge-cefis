@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from 'react'
+'use-client'
+
+import React, { useEffect, useMemo, useState } from 'react'
 import ColumnComponent from './ColumnComponent'
 import {
   Button,
@@ -29,20 +31,32 @@ import {
 import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
+import defaultTasks from '../hooks/useTasks'
+import defaultColumns from '../hooks/useColumns'
 
 const KanbanBoardComponent = () => {
-  const defaultColumns: Column[] = [
-    { id: generateId(), title: 'Não Iniciado', color: '#C9F5FF66' },
-    { id: generateId(), title: 'Iniciadas', color: '#D8FDD266' },
-    { id: generateId(), title: 'Concluído', color: '#F5F5F5' },
-  ]
-  const [columns, setColumns] = useState<Column[]>(defaultColumns)
-  const defaultTasks: Task[] = [
-    { id: generateId(), columnId: defaultColumns[0].id, content: 'Task 1' },
-    { id: generateId(), columnId: defaultColumns[1].id, content: 'Task 2' },
-    { id: generateId(), columnId: defaultColumns[2].id, content: 'Task 3' },
-  ]
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks)
+  // Fetching default columns
+  useEffect(() => {
+    const fetchColumns = async () => {
+      const defaultFetchedTasks = await defaultColumns()
+      setColumns(defaultFetchedTasks)
+    }
+
+    fetchColumns()
+  }, [])
+
+  // Fetching default tasks
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const defaultFetchedTasks = await defaultTasks()
+      setTasks(defaultFetchedTasks)
+    }
+
+    fetchTasks()
+  }, [])
+
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [columns, setColumns] = useState<Column[]>([])
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = React.useState('')
   const [color, setColor] = React.useState('#C9F5FF66')
@@ -96,7 +110,19 @@ const KanbanBoardComponent = () => {
     const newTask: Task = {
       id: generateId(),
       columnId,
-      content: `Task ${tasks.length + 1}`,
+      priority: 3,
+      taskName: `Task ${tasks.length + 1}`,
+      taskTag: {
+        label: '',
+        value: '',
+      },
+      requester: {
+        name: '',
+        avatar: '',
+      },
+      executer: [],
+      projectName: '',
+      deadline: '',
     }
 
     setTasks([...tasks, newTask])
@@ -281,29 +307,32 @@ const KanbanBoardComponent = () => {
           </ModalContent>
         </Modal>
       </div>
-      {createPortal(
-        <DragOverlay>
-          {activeColumn && (
-            <ColumnComponent
-              column={activeColumn}
-              deleteColumn={deleteColumn}
-              updateColumn={updateColumn}
-              createTask={createTask}
-              deleteTask={deleteTask}
-              updateTask={updateTask}
-              tasks={tasks.filter((task) => task.columnId === activeColumn.id)}
-            />
-          )}
-          {activeTask && (
-            <CardComponent
-              task={activeTask}
-              deleteTask={deleteTask}
-              updateTask={updateTask}
-            />
-          )}
-        </DragOverlay>,
-        document.body,
-      )}
+      {typeof window !== 'undefined' &&
+        createPortal(
+          <DragOverlay>
+            {activeColumn && (
+              <ColumnComponent
+                column={activeColumn}
+                deleteColumn={deleteColumn}
+                updateColumn={updateColumn}
+                createTask={createTask}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+                tasks={tasks.filter(
+                  (task) => task.columnId === activeColumn.id,
+                )}
+              />
+            )}
+            {activeTask && (
+              <CardComponent
+                task={activeTask}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+              />
+            )}
+          </DragOverlay>,
+          document.body,
+        )}
     </DndContext>
   )
 }
