@@ -10,7 +10,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
   options,
 }) => {
   return (
-    <div className="flex w-9/12 flex-col items-start">
+    <div className="flex w-4/12 flex-col items-start">
       <Box
         position="relative"
         top="2.5"

@@ -67,13 +67,10 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
   return (
     <div
       ref={setNodeRef}
-      style={style}
-      className="h-[600px] w-[500px] rounded-lg text-base font-medium"
+      style={{ ...style, backgroundColor: column.color }}
+      className={`${tasks.length > 3 ? 'h-fit' : 'h-[600px]'} w-[500px] rounded-lg text-base font-medium`}
     >
-      <div
-        className="rounded-lg bg-[color] p-3 text-black"
-        style={{ backgroundColor: column.color }}
-      >
+      <div className="rounded-lg p-3 text-black">
         <div
           {...attributes}
           {...listeners}
@@ -131,7 +128,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             </div>
           </div>
         </div>
-        <div className="flex flex-grow flex-col gap-4 overflow-y-auto overflow-x-hidden p-2">
+        <div className="flex flex-grow flex-col gap-4 overscroll-y-contain p-2">
           <SortableContext items={tasksIds}>
             {tasks.map((task) => (
               <CardComponent

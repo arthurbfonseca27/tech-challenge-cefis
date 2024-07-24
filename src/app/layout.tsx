@@ -1,3 +1,5 @@
+'use-client'
+
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -8,6 +10,7 @@ import {
   MdBugReport,
 } from 'react-icons/md'
 import { Providers } from './providers'
+import { ColumnProvider } from '../context/ColumnContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,20 +26,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-[#FFFFFF]`}>
         <Providers>
-          <div className="flex h-fit min-w-full flex-row justify-between bg-[#323232] bg-cover bg-fixed bg-no-repeat">
-            <div className="flex flex-row items-center gap-6 py-4 pl-10 text-xl text-white">
-              <IoMenu size={36} color="#FFFFFF" />
-              <p className="font-medium">Tasks</p>
+          <ColumnProvider>
+            <div className="flex w-fit flex-col bg-[#323232] bg-fixed bg-no-repeat">
+              <div className="w-screen">
+                <div className="flex h-fit flex-row justify-between bg-[#323232] bg-cover bg-fixed bg-no-repeat px-20">
+                  <div className="flex flex-row items-center gap-6 py-4 text-xl text-white">
+                    <IoMenu size={36} color="#FFFFFF" />
+                    <p className="font-medium">Tasks</p>
+                  </div>
+                  <div className="flex flex-row items-center gap-6 pr-10">
+                    <MdOutlinePendingActions size={36} color="#FFFFFF" />
+                    <MdAccountTree size={36} color="#FFFFFF" />
+                    <MdBugReport size={36} color="#FFFFFF" />
+                  </div>
+                </div>
+              </div>
+              {children}
             </div>
-            <div className="flex flex-row items-center gap-6 pr-10">
-              <MdOutlinePendingActions size={36} color="#FFFFFF" />
-              <MdAccountTree size={36} color="#FFFFFF" />
-              <MdBugReport size={36} color="#FFFFFF" />
-            </div>
-          </div>
-          {children}
+          </ColumnProvider>
         </Providers>
       </body>
     </html>

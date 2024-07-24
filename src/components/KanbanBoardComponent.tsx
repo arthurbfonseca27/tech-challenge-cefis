@@ -31,8 +31,18 @@ import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
 
 const KanbanBoardComponent = () => {
-  const [columns, setColumns] = useState<Column[]>([])
-  const [tasks, setTasks] = useState<Task[]>([])
+  const defaultColumns: Column[] = [
+    { id: generateId(), title: 'Não Iniciado', color: '#C9F5FF66' },
+    { id: generateId(), title: 'Iniciadas', color: '#D8FDD266' },
+    { id: generateId(), title: 'Concluído', color: '#F5F5F5' },
+  ]
+  const [columns, setColumns] = useState<Column[]>(defaultColumns)
+  const defaultTasks: Task[] = [
+    { id: generateId(), columnId: defaultColumns[0].id, content: 'Task 1' },
+    { id: generateId(), columnId: defaultColumns[1].id, content: 'Task 2' },
+    { id: generateId(), columnId: defaultColumns[2].id, content: 'Task 3' },
+  ]
+  const [tasks, setTasks] = useState<Task[]>(defaultTasks)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = React.useState('')
   const [color, setColor] = React.useState('#C9F5FF66')

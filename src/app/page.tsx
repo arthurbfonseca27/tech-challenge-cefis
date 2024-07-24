@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <div className="bg-white">
       <div className="flex flex-col gap-6 px-20 pt-10">
-        <div className="flex flex-row items-center justify-center gap-x-4">
-          <div className="w-full pt-5">
+        <div className="flex max-w-[84%] flex-row items-center justify-center gap-x-4">
+          <div className="w-5/12 pt-5">
             <InputGroup size="lg" bg="#F5F5F5" borderRadius="lg">
               <InputLeftElement pointerEvents="none">
                 <IoIosSearch color="#000000" size={24} />
