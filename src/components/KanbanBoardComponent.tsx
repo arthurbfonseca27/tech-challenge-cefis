@@ -32,19 +32,15 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
 import defaultTasks from '../hooks/useTasks'
-import defaultColumns from '../hooks/useColumns'
 import SearchComponent from './SearchComponet'
 
 const KanbanBoardComponent = () => {
   // Fetching default columns
-  useEffect(() => {
-    const fetchColumns = async () => {
-      const defaultFetchedTasks = await defaultColumns()
-      setColumns(defaultFetchedTasks)
-    }
-
-    fetchColumns()
-  }, [])
+  const defaultColumns: Column[] = [
+    { id: 1, title: 'Não Iniciado', color: '#F5F5F5' },
+    { id: 2, title: 'Iniciadas', color: '#C9F5FF66' },
+    { id: 3, title: 'Concluído', color: '#D8FDD266' },
+  ]
 
   // Fetching default tasks
   useEffect(() => {
@@ -57,7 +53,7 @@ const KanbanBoardComponent = () => {
   }, [])
 
   const [tasks, setTasks] = useState<Task[]>([])
-  const [columns, setColumns] = useState<Column[]>([])
+  const [columns, setColumns] = useState<Column[]>(defaultColumns)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = React.useState('')
   const [color, setColor] = React.useState('#C9F5FF66')

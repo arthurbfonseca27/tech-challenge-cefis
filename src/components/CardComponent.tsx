@@ -17,7 +17,6 @@ import { RxDividerVertical } from 'react-icons/rx'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import PriorityComponent from './PriorityComponent'
-import { exec } from 'child_process'
 
 interface Props {
   task: Task

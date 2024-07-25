@@ -83,7 +83,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
               setEditMode(true)
             }}
           >
-            <p>
+            <div>
               {editMode ? (
                 <input
                   className="border-1 items-start justify-start rounded border-black bg-[#67676766] px-2 outline-none"
@@ -99,16 +99,16 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
                   }}
                 />
               ) : (
-                <div className="w-fit max-w-80 truncate">{column.title}</div>
+                <p className="w-fit max-w-80 truncate">{column.title}</p>
               )}
-            </p>
+            </div>
           </div>
           <div className="flex flex-row items-center gap-2">
             <div className="text-[#394A53] hover:text-red-500">
               <IconButton
                 variant="solid"
                 bg="transparent"
-                _hover={{ bg: 'transparent', color: '#00A3FF' }}
+                _hover={{ bg: 'transparent', color: '#00D964' }}
                 aria-label="Add task"
                 onClick={() => {
                   createTask(column.id)
@@ -116,18 +116,20 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
                 icon={<IoIosAdd size={28} />}
               />
             </div>
-            <div className="text-[#394A53] hover:text-red-500">
-              <IconButton
-                variant="solid"
-                bg="transparent"
-                _hover={{ bg: 'transparent', color: '#800000' }}
-                aria-label="Delete Column"
-                onClick={() => {
-                  deleteColumn(column.id)
-                }}
-                icon={<MdDeleteOutline size={24} />}
-              />
-            </div>
+            {column.id !== 1 && column.id !== 2 && column.id !== 3 && (
+              <div className="text-[#394A53] hover:text-red-500">
+                <IconButton
+                  variant="solid"
+                  bg="transparent"
+                  _hover={{ bg: 'transparent', color: '#800000' }}
+                  aria-label="Delete Column"
+                  onClick={() => {
+                    deleteColumn(column.id)
+                  }}
+                  icon={<MdDeleteOutline size={24} />}
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-grow flex-col gap-4 overscroll-y-contain py-2">
