@@ -21,7 +21,6 @@
   background-color: #323232; /* Define a cor de fundo */
 }
 
-
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

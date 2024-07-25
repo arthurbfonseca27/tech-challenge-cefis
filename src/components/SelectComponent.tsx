@@ -12,7 +12,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
   options,
 }) => {
   return (
-    <div className="flex w-4/12 flex-col items-start">
+    <div className="flex w-4/12 flex-col items-start outline-none">
       <Box
         position="relative"
         top="2.5"
@@ -23,7 +23,12 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
       >
         <p className="items-start text-sm">{title}</p>
       </Box>
-      <Select placeholder="Todos" size="lg" borderRadius="lg">
+      <Select
+        placeholder="Todos"
+        size="lg"
+        borderRadius="lg"
+        borderColor="#67676733"
+      >
         {options.map((option, index) => (
           <option value="option1" key={index}>
             {option}
