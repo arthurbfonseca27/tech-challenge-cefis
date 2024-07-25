@@ -10,7 +10,6 @@ import {
   Avatar,
   TagLabel,
   TagLeftIcon,
-  AvatarGroup,
 } from '@chakra-ui/react'
 import { FaArrowRightLong } from 'react-icons/fa6'
 import { RxDividerVertical } from 'react-icons/rx'
@@ -140,23 +139,14 @@ const CardComponent = ({ task, deleteTask }: Props) => {
               <p className="max-w-xs truncate">{task.requester.name}</p>
             </div>
             <FaArrowRightLong color="#BEBEBE" />
-            {task.executer.length > 1 ? (
-              <AvatarGroup size="xs" max={2}>
-                {task.executer.map((exec, index) => (
-                  <Avatar key={index} name={exec.name} src={exec.avatar} />
-                ))}
-              </AvatarGroup>
-            ) : (
-              task.executer.map((exec, index) => (
-                <div
-                  key={index}
-                  className="flex w-fit max-w-24 flex-row items-center gap-x-2"
-                >
-                  <Avatar name={exec.name} src={exec.avatar} size="xs" />
-                  <p className="truncate">{exec.name}</p>
-                </div>
-              ))
-            )}
+            <div className="flex w-fit max-w-24 flex-row items-center gap-x-2">
+              <Avatar
+                name={task.executer.name}
+                src={task.executer.avatar}
+                size="xs"
+              />
+              <p className="truncate">{task.executer.name}</p>
+            </div>
             <RxDividerVertical color="#67676733" size={20} />
             <MdOutlineInventory2 color="#00000066" />
             <p className="max-w-xs truncate">{task.projectName}</p>

@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 
 import React, { useEffect, useMemo, useState } from 'react'
 import ColumnComponent from './ColumnComponent'
@@ -17,7 +17,7 @@ import {
   HStack,
 } from '@chakra-ui/react'
 import { IoIosAdd } from 'react-icons/io'
-import { Column, Id, Task } from '@/types'
+import { Column, Id, Task, Option } from '@/types'
 import {
   DndContext,
   DragEndEvent,
@@ -32,7 +32,9 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
 import defaultTasks from '../hooks/useTasks'
-import SearchComponent from './SearchComponet'
+import SearchComponent from './SearchComponent'
+import ModalNewTaskComponent from './ModalNewTaskComponent'
+import defaultRequestersFunction from '@/hooks/useRequesters'
 
 const KanbanBoardComponent = () => {
   // Fetching default columns
@@ -52,13 +54,38 @@ const KanbanBoardComponent = () => {
     fetchTasks()
   }, [])
 
+  const [requesters, setRequesters] = useState([])
+  const [selectedRequester, setSelectedRequester] = useState<
+    Task['requester'] | null
+  >(null)
   const [tasks, setTasks] = useState<Task[]>([])
   const [columns, setColumns] = useState<Column[]>(defaultColumns)
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [title, setTitle] = React.useState('')
-  const [color, setColor] = React.useState('#C9F5FF66')
+  const [title, setTitle] = useState('')
+  const [color, setColor] = useState('#C9F5FF66')
   const [activeColumn, setActiveColumn] = useState<Column | null>(null)
   const [activeTask, setActiveTask] = useState<Task | null>(null)
+  const [taskTitle, setTaskTitle] = useState<string>('')
+  const [taskPriority, setTaskPriority] = useState<Option>()
+  const [taskExecuter, setTaskExecuter] = useState<Task['executer']>({
+    name: '',
+    avatar: '',
+  })
+
+  // Fetching default requesters
+  useEffect(() => {
+    async function fetchRequester() {
+      const data = await defaultRequestersFunction()
+      setRequesters(data.requesters)
+    }
+    fetchRequester()
+  }, [])
+
+  const getRandomRequester = () => {
+    const randomRequester =
+      requesters[Math.floor(Math.random() * requesters.length)]
+    setSelectedRequester(randomRequester)
+  }
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -67,10 +94,25 @@ const KanbanBoardComponent = () => {
     }),
   )
 
+  const {
+    isOpen: isOpenNewColumn,
+    onOpen: onOpenNewColumn,
+    onClose: onCloseNewColumn,
+  } = useDisclosure()
+  const {
+    isOpen: isOpenNewTask,
+    onOpen: onOpenNewTask,
+    onClose: onCloseNewTask,
+  } = useDisclosure()
+
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns])
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value)
+
+  const handleExecuterChange = (executerName: string) => {
+    setTaskExecuter((prev) => ({ ...prev, name: executerName }))
+  }
 
   const selectColor = (color: string) => setColor(color)
 
@@ -81,7 +123,7 @@ const KanbanBoardComponent = () => {
       color,
     }
     setColumns([...columns, columnToAdd])
-    onClose()
+    onCloseNewColumn()
     setTitle('')
     setColor('#C9F5FF66')
   }
@@ -103,26 +145,35 @@ const KanbanBoardComponent = () => {
     setColumns(newColumns)
   }
 
+  const handleOpenNewTask = () => {
+    getRandomRequester()
+    onOpenNewTask()
+  }
+
   const createTask = (columnId: Id) => {
     const newTask: Task = {
       id: generateId(),
       columnId,
-      priority: 3,
-      taskName: `Task ${tasks.length + 1}`,
+      priority: taskPriority?.priority ?? 0,
+      taskName: taskTitle,
       taskTag: {
         label: '',
         value: '',
       },
       requester: {
-        name: '',
-        avatar: '',
+        name: selectedRequester?.name ?? '',
+        avatar: selectedRequester?.avatar ?? '',
       },
-      executer: [],
+      executer: {
+        name: taskExecuter.name,
+        avatar: taskExecuter.avatar,
+      },
       projectName: '',
       deadline: '',
     }
 
     setTasks([...tasks, newTask])
+    onCloseNewTask()
   }
 
   const deleteTask = (id: Id) => {
@@ -231,15 +282,33 @@ const KanbanBoardComponent = () => {
       onDragEnd={onDragEnd}
       onDragOver={onDragOver}
     >
-      <div className="pr-20">
+      <div className="flex flex-row gap-4 pb-2">
         <Button
           leftIcon={<IoIosAdd />}
           variant="outline"
           borderColor="#67676733"
-          onClick={onOpen}
+          onClick={onOpenNewColumn}
         >
           Adicionar coluna
         </Button>
+
+        <Button
+          leftIcon={<IoIosAdd />}
+          variant="outline"
+          borderColor="#67676733"
+          onClick={handleOpenNewTask}
+        >
+          Adicionar Task
+        </Button>
+        <ModalNewTaskComponent
+          isOpen={isOpenNewTask}
+          onClose={onCloseNewTask}
+          columns={columns}
+          createTask={createTask}
+          onTitleChange={setTaskTitle}
+          onPriorityChange={setTaskPriority}
+          onExecuterChange={handleExecuterChange}
+        />
       </div>
       <SearchComponent />
       <div className="flex flex-row">
@@ -259,7 +328,7 @@ const KanbanBoardComponent = () => {
             ))}
           </SortableContext>
         </div>
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpenNewColumn} onClose={onCloseNewColumn}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Adicionar coluna</ModalHeader>
@@ -298,7 +367,7 @@ const KanbanBoardComponent = () => {
               >
                 Adicionar
               </Button>
-              <Button variant="ghost" onClick={onClose}>
+              <Button variant="ghost" onClick={onCloseNewColumn}>
                 Cancelar
               </Button>
             </ModalFooter>

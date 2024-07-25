@@ -6,8 +6,9 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { CSS } from '@dnd-kit/utilities'
 import { Column, Id, Task } from '@/types'
 import { SortableContext, useSortable } from '@dnd-kit/sortable'
-import { IoIosAdd } from 'react-icons/io'
+// import { IoIosAdd } from 'react-icons/io'
 import CardComponent from './CardComponent'
+// import ModalNewTaskComponent from './ModalNewTaskComponent'
 
 interface ColumnComponentProps {
   column: Column
@@ -23,12 +24,17 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
   column,
   deleteColumn,
   updateColumn,
-  createTask,
+  // createTask,
   deleteTask,
   updateTask,
   tasks,
 }) => {
   const [editMode, setEditMode] = useState(false)
+  // const {
+  //   isOpen: isOpenNewTask,
+  //   onOpen: onOpenNewTask,
+  //   onClose: onCloseNewTask,
+  // } = useDisclosure()
 
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id)
@@ -70,13 +76,13 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
     <div
       ref={setNodeRef}
       style={{ ...style, backgroundColor: column.color }}
-      className="flex w-[500px] flex-col rounded-lg text-base font-medium"
+      className="flex w-[500px] flex-col rounded-lg p-3 text-base font-medium"
     >
-      <div className="rounded-lg px-3 pt-2 text-black">
+      <div className="rounded-lg text-black">
         <div
           {...attributes}
           {...listeners}
-          className="flex cursor-grab flex-row items-center justify-between pb-2"
+          className="flex cursor-grab flex-row items-center justify-between"
         >
           <div
             onClick={() => {
@@ -86,7 +92,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             <div>
               {editMode ? (
                 <input
-                  className="border-1 items-start justify-start rounded border-black bg-[#67676766] px-2 outline-none"
+                  className="border-1 items-start justify-start rounded border-black bg-[#67676766] outline-none"
                   value={column.title}
                   onChange={(e) => updateColumn(column.id, e.target.value)}
                   autoFocus
@@ -99,23 +105,13 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
                   }}
                 />
               ) : (
-                <p className="w-fit max-w-80 truncate">{column.title}</p>
+                <p className="w-fit max-w-80 truncate pb-4 pt-1">
+                  {column.title}
+                </p>
               )}
             </div>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <div className="text-[#394A53] hover:text-red-500">
-              <IconButton
-                variant="solid"
-                bg="transparent"
-                _hover={{ bg: 'transparent', color: '#00D964' }}
-                aria-label="Add task"
-                onClick={() => {
-                  createTask(column.id)
-                }}
-                icon={<IoIosAdd size={28} />}
-              />
-            </div>
             {column.id !== 1 && column.id !== 2 && column.id !== 3 && (
               <div className="text-[#394A53] hover:text-red-500">
                 <IconButton
@@ -132,7 +128,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             )}
           </div>
         </div>
-        <div className="flex h-[540px] flex-grow flex-col gap-1 overflow-y-auto overflow-x-hidden">
+        <div className="flex h-[500px] flex-grow flex-col gap-1 overflow-y-auto overflow-x-hidden">
           <SortableContext items={tasksIds}>
             {tasks.map((task) => (
               <CardComponent
@@ -144,6 +140,26 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             ))}
           </SortableContext>
         </div>
+        {/* <div className="flex w-full flex-row items-center pt-4">
+          <Button
+            leftIcon={<IoIosAdd />}
+            bgColor="transparent"
+            variant="ghost"
+            borderColor="#323232"
+            width="full"
+            onClick={() => {
+              onOpenNewTask()
+              createTask(column.id)
+            }}
+            _hover={{ bg: 'transparent' }}
+          >
+            Nova task
+          </Button>
+          <ModalNewTaskComponent
+            isOpen={isOpenNewTask}
+            onClose={onCloseNewTask}
+          />
+        </div> */}
       </div>
     </div>
   )

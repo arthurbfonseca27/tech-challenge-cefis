@@ -3,21 +3,39 @@
 import React from 'react'
 
 interface PriorityComponentProps {
-  priority: number
+  horizontal?: boolean
+  priority: number | undefined
 }
 
-const PriorityComponent: React.FC<PriorityComponentProps> = ({ priority }) => {
-  return (
-    <div className="flex flex-col space-y-0.5 rounded-3xl">
+const PriorityComponent: React.FC<PriorityComponentProps> = ({
+  priority,
+  horizontal,
+}) => {
+  if (priority === undefined) return null
+
+  const renderDivs = () => {
+    const divs = [
       <div
-        className={`${priority === 1 ? 'border-[#902018]' : 'border-[#BEBEBE66]'} h-full border-4`}
-      ></div>
+        key="1"
+        className={`${priority === 1 ? 'border-[#902018]' : 'border-[#BEBEBE66]'} ${horizontal ? 'rounded-r-3xl' : ''} h-full border-4`}
+      ></div>,
       <div
+        key="2"
         className={`${priority === 1 ? 'border-[#902018]' : priority === 2 ? 'border-[#F2BB68]' : 'border-[#BEBEBE66]'} h-full border-4`}
-      ></div>
+      ></div>,
       <div
-        className={`${priority === 1 ? 'border-[#902018]' : priority === 2 ? 'border-[#F2BB68]' : 'border-[#394A53]'} h-full border-4`}
-      ></div>
+        key="3"
+        className={`${priority === 1 ? 'border-[#902018]' : priority === 2 ? 'border-[#F2BB68]' : 'border-[#394A53]'} ${horizontal ? 'rounded-l-3xl' : ''} h-full border-4`}
+      ></div>,
+    ]
+
+    return horizontal ? divs.reverse() : divs
+  }
+  return (
+    <div
+      className={`${horizontal ? 'flex-row gap-0.5' : 'flex-col space-y-0.5'} flex rounded-3xl`}
+    >
+      {renderDivs()}
     </div>
   )
 }

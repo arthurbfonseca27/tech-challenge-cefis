@@ -21,12 +21,11 @@ export async function GET() {
         name: 'Alice Johnson',
         avatar: 'https://bit.ly/alice-johnson',
       },
-      executer: [
-        {
-          name: 'Gabriel Silva',
-          avatar: 'https://bit.ly/gabriel-silva',
-        },
-      ],
+      executer: {
+        name: 'Gabriel Silva',
+        avatar: 'https://bit.ly/gabriel-silva',
+      },
+
       projectName: 'Customer Portal',
       deadline: '5 days',
     },
@@ -43,17 +42,12 @@ export async function GET() {
         name: 'Bob Smith',
         avatar: 'https://bit.ly/bob-smith',
       },
-      executer: [
-        {
-          name: 'Mariana Costa',
-          avatar:
-            'https://fastly.picsum.photos/id/64/4326/2884.jpg?hmac=9_SzX666YRpR_fOyYStXpfSiJ_edO3ghlSRnH2w09Kg',
-        },
-        {
-          name: 'Lucas Lima',
-          avatar: 'https://bit.ly/lucas-lima',
-        },
-      ],
+      executer: {
+        name: 'Mariana Costa',
+        avatar:
+          'https://fastly.picsum.photos/id/64/4326/2884.jpg?hmac=9_SzX666YRpR_fOyYStXpfSiJ_edO3ghlSRnH2w09Kg',
+      },
+
       projectName: 'Analytics Platform',
       deadline: '10 days',
     },
@@ -70,12 +64,11 @@ export async function GET() {
         name: 'Charlie Brown',
         avatar: 'https://bit.ly/charlie-brown',
       },
-      executer: [
-        {
-          name: 'Isabela Martinss',
-          avatar: 'https://bit.ly/isabela-martins',
-        },
-      ],
+      executer: {
+        name: 'Isabela Martinss',
+        avatar: 'https://bit.ly/isabela-martins',
+      },
+
       projectName: 'Inventory System',
       deadline: '3 days',
     },

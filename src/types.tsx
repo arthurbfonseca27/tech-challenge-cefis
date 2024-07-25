@@ -22,7 +22,14 @@ export type Task = {
   executer: {
     name: string
     avatar: string
-  }[]
+  }
   projectName: string
   deadline: string
+}
+
+export type Option = {
+  priority?: number
+  title: string
+  id?: Id
+  color?: string
 }
