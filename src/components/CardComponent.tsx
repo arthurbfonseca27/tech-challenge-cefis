@@ -98,7 +98,7 @@ const CardComponent = ({ task, deleteTask }: Props) => {
       {...attributes}
       {...listeners}
       onClick={toggleEditMode}
-      className="task mb-4 flex h-fit cursor-grab flex-row items-center justify-between overflow-hidden rounded-xl border-black border-transparent bg-[#FFFFFF] hover:border hover:border-[#00A3FF] active:cursor-grabbing"
+      className="task mb-4 flex h-fit min-h-40 cursor-grab flex-row items-center justify-between overflow-hidden rounded-xl border-black border-transparent bg-[#FFFFFF] hover:border hover:border-[#00A3FF] active:cursor-grabbing"
     >
       <div className="flex w-full flex-row">
         <PriorityComponent priority={task.priority} />

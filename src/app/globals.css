@@ -42,13 +42,13 @@ body {
 }
 
 ::-webkit-scrollbar:horizontal {
-  height: 8px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-[#323232] rounded-xl;
+  @apply bg-[#323232] rounded-lg;
 }
 
 .task > ::-webkit-scrollbar-thumb {
-  @apply bg-[#323232] rounded-xl
+  @apply bg-[#323232] rounded-3xl
 }

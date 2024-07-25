@@ -70,13 +70,13 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
     <div
       ref={setNodeRef}
       style={{ ...style, backgroundColor: column.color }}
-      className={`${tasks.length > 3 ? 'h-fit' : 'h-[600px]'} w-[500px] rounded-lg text-base font-medium`}
+      className="flex w-[500px] flex-col rounded-lg text-base font-medium"
     >
-      <div className="rounded-lg p-3 text-black">
+      <div className="rounded-lg px-3 pt-2 text-black">
         <div
           {...attributes}
           {...listeners}
-          className="flex cursor-grab flex-row items-center justify-between"
+          className="flex cursor-grab flex-row items-center justify-between pb-2"
         >
           <div
             onClick={() => {
@@ -132,7 +132,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             )}
           </div>
         </div>
-        <div className="flex flex-grow flex-col gap-4 overscroll-y-contain py-2">
+        <div className="flex h-[540px] flex-grow flex-col gap-1 overflow-y-auto overflow-x-hidden">
           <SortableContext items={tasksIds}>
             {tasks.map((task) => (
               <CardComponent
