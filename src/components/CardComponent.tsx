@@ -17,14 +17,15 @@ import { RxDividerVertical } from 'react-icons/rx'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import PriorityComponent from './PriorityComponent'
+import TimerComponent from './TimerComponent'
 
 interface Props {
   task: Task
   deleteTask: (id: Id) => void
-  updateTask: (id: Id, content: string) => void
+  updateTask?: (id: Id, content: string) => void
 }
 
-const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
+const CardComponent = ({ task, deleteTask }: Props) => {
   const [editMode, setEditMode] = useState(false)
 
   const {
@@ -62,33 +63,33 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
     )
   }
 
-  if (editMode) {
-    return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        {...attributes}
-        {...listeners}
-        className="flex cursor-grab flex-row items-center justify-between rounded-xl border-2 border-black bg-[#394A53] p-8 hover:ring-[#00A3FF]"
-      >
-        <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
-          <textarea
-            className="h-[90%] w-full resize-none rounded border-none bg-transparent text-black focus:outline-none"
-            value={task.taskName}
-            autoFocus
-            placeholder="Conteúdo"
-            onBlur={toggleEditMode}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && e.shiftKey) {
-                toggleEditMode()
-              }
-            }}
-            onChange={(e) => updateTask(task.id, e.target.value)}
-          ></textarea>
-        </div>
-      </div>
-    )
-  }
+  // if (editMode) {
+  //   return (
+  //     <div
+  //       ref={setNodeRef}
+  //       style={style}
+  //       {...attributes}
+  //       {...listeners}
+  //       className="flex cursor-grab flex-row items-center justify-between rounded-xl border-2 border-black bg-[#394A53] p-8 hover:ring-[#00A3FF]"
+  //     >
+  //       <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
+  //         <textarea
+  //           className="h-[90%] w-full resize-none rounded border-none bg-transparent text-black focus:outline-none"
+  //           value={task.taskName}
+  //           autoFocus
+  //           placeholder="Conteúdo"
+  //           onBlur={toggleEditMode}
+  //           onKeyDown={(e) => {
+  //             if (e.key === 'Enter' && e.shiftKey) {
+  //               toggleEditMode()
+  //             }
+  //           }}
+  //           onChange={(e) => updateTask(task.id, e.target.value)}
+  //         ></textarea>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div
@@ -160,11 +161,12 @@ const CardComponent = ({ task, deleteTask, updateTask }: Props) => {
             <MdOutlineInventory2 color="#00000066" />
             <p className="max-w-xs truncate">{task.projectName}</p>
           </div>
-          <div className="pt-4">
+          <div className="flex h-12 flex-row items-center justify-between pt-4">
             <Tag borderRadius="full" size="sm">
               <TagLeftIcon boxSize="12px" as={LuCalendar}></TagLeftIcon>
               <TagLabel>{task.deadline}</TagLabel>
             </Tag>
+            <TimerComponent />
           </div>
         </div>
       </div>
