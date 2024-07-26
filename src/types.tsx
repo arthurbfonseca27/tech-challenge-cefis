@@ -11,10 +11,6 @@ export type Task = {
   columnId: Id
   priority: number
   taskName: string
-  taskTag: {
-    label: string
-    value: string
-  }
   requester: {
     name: string
     avatar: string
@@ -25,6 +21,7 @@ export type Task = {
   }
   projectName: string
   deadline: string
+  dtt: boolean
 }
 
 export type Option = {

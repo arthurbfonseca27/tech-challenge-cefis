@@ -5,6 +5,8 @@ import {
   FaCheckCircle,
 } from 'react-icons/fa'
 import { Tag, TagLabel, TagLeftIcon, IconButton } from '@chakra-ui/react'
+import TimerPlay from '@/icons/TimerPlay'
+import TimerStop from '@/icons/TimerStop'
 
 const TimerComponent = () => {
   const [time, setTime] = useState(0)
@@ -51,16 +53,21 @@ const TimerComponent = () => {
           <button onClick={toggle} className="flex flex-row items-center">
             <div className="flex flex-row items-center gap-2">
               <Tag
+                width="fit"
                 variant="solid"
                 bgColor="#E17222"
                 borderRadius="full"
-                size="md"
+                size="lg"
                 border="0px"
                 borderColor="transparent"
                 color="#FFFFFF"
               >
-                <TagLeftIcon as={FaRegPauseCircle} size="full" />
-                <TagLabel color="#FFFFFF">Pausar</TagLabel>
+                <div className="flex flex-row items-center">
+                  <TagLeftIcon as={TimerStop} />
+                  <TagLabel color="#FFFFFF" pl="1" pt="0.5">
+                    Pausar
+                  </TagLabel>
+                </div>
               </Tag>
             </div>
           </button>
@@ -69,10 +76,10 @@ const TimerComponent = () => {
         <IconButton
           onClick={toggle}
           bgColor="transparent"
-          size="xs"
+          size="lg"
           _hover={{ bg: 'transparent' }}
           aria-label="Start timer"
-          icon={<FaRegPlayCircle color="#394A5333" size="full" />}
+          icon={<TimerPlay size={28} />}
         />
       )}
       {time !== 0 && (
@@ -80,11 +87,11 @@ const TimerComponent = () => {
           <IconButton
             onClick={reset}
             bgColor="transparent"
-            size="xs"
+            size="sm"
             py="0px"
             _hover={{ bg: 'transparent' }}
             aria-label="Reset timer"
-            icon={<FaCheckCircle color="#00D964" size="full" />}
+            icon={<FaCheckCircle color="#00D964" size={32} />}
           />
         </div>
       )}

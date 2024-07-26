@@ -3,20 +3,14 @@
 import React, { useState } from 'react'
 import { Id, Task } from '@/types'
 import { MdDeleteOutline, MdOutlineInventory2 } from 'react-icons/md'
-import { LuCalendar } from 'react-icons/lu'
-import {
-  IconButton,
-  Tag,
-  Avatar,
-  TagLabel,
-  TagLeftIcon,
-} from '@chakra-ui/react'
+import { IconButton, Tag, Avatar } from '@chakra-ui/react'
 import { FaArrowRightLong } from 'react-icons/fa6'
 import { RxDividerVertical } from 'react-icons/rx'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import PriorityComponent from './PriorityComponent'
 import TimerComponent from './TimerComponent'
+import Calendar from '../icons/Calendar'
 
 interface Props {
   task: Task
@@ -105,12 +99,15 @@ const CardComponent = ({ task, deleteTask }: Props) => {
           <div className="flex w-full flex-row items-center justify-between gap-2">
             <div className="flex w-fit flex-row items-center gap-5">
               <p className="max-w-56 truncate">{task.taskName}</p>
-              <Tag bg="#F5F5F5">
+              <Tag
+                bg={`${task.dtt ? '#D8FDD2' : '#F4E3E3'}`}
+                borderRadius="full"
+              >
                 <div className="flex w-full flex-row text-sm">
-                  <span className="pr-2 font-bold text-[#00000066]">
-                    {task.taskTag.label}
+                  <span className="pr-2 font-bold text-[#00000066]">DTT</span>
+                  <span className="font-normal">
+                    {task.dtt ? '+1000' : '-100'}
                   </span>
-                  <span className="font-normal">{task.taskTag.value}</span>
                 </div>
               </Tag>
             </div>
@@ -152,10 +149,10 @@ const CardComponent = ({ task, deleteTask }: Props) => {
             <p className="max-w-xs truncate">{task.projectName}</p>
           </div>
           <div className="flex h-12 flex-row items-center justify-between pt-4">
-            <Tag borderRadius="full" size="sm">
-              <TagLeftIcon boxSize="12px" as={LuCalendar}></TagLeftIcon>
-              <TagLabel>{task.deadline}</TagLabel>
-            </Tag>
+            <div className="flex flex-row items-center gap-2 text-sm text-[#00000099]">
+              <Calendar />
+              <p>Prazo máximo: {task.deadline} dias</p>
+            </div>
             <TimerComponent />
           </div>
         </div>

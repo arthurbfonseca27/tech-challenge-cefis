@@ -1,6 +1,6 @@
 import { Option } from '@/types'
 import { Tag, TagLabel } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { FaChevronDown, FaCheck } from 'react-icons/fa'
 import PriorityComponent from './PriorityComponent'
 
@@ -22,21 +22,22 @@ const DropDownMenuComponent = ({
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement | null>(null)
 
-  useEffect(() => {
-    const onBodyClick = (event: MouseEvent) => {
-      if (ref.current && ref.current.contains(event.target as Node)) {
-        return
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsOpen(false)
       }
+    },
+    [ref],
+  )
 
-      setIsOpen(false)
-    }
-
-    document.body.addEventListener('click', onBodyClick)
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
 
     return () => {
-      document.body.removeEventListener('click', onBodyClick)
+      document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [])
+  }, [handleClickOutside])
 
   const toggleDropdown = () => {
     setIsOpen((prevState) => !prevState)
@@ -94,7 +95,9 @@ const DropDownMenuComponent = ({
                     setIsOpen(false)
                   }}
                   key={option.id}
-                  className={`${selected?.id === option.id && 'bg-slate-100'} relative flex cursor-pointer select-none items-center justify-between px-3 py-2 text-gray-900 transition-all hover:bg-slate-50`}
+                  className={`${
+                    selected?.id === option.id && 'bg-slate-100'
+                  } relative flex cursor-pointer select-none items-center justify-between px-3 py-2 text-gray-900 transition-all hover:bg-slate-50`}
                 >
                   <div className="flex items-center gap-x-2">
                     {option.priority ? (

@@ -1,3 +1,4 @@
+// src/components/ModalNewTaskComponent.tsx
 import React, { useEffect, useState } from 'react'
 import {
   Modal,
@@ -18,23 +19,23 @@ import {
 } from '@chakra-ui/react'
 import { FaCheckCircle, FaCheck } from 'react-icons/fa'
 import { PiUserCircleFill } from 'react-icons/pi'
-import { MdOutlineSort, MdEventAvailable } from 'react-icons/md'
+import {
+  MdOutlineSort,
+  MdEventAvailable,
+  MdOutlineNotStarted,
+} from 'react-icons/md'
 import DropDownMenuComponent from './DropDownMenuComponent'
 import defaultExecuters from '../hooks/useExecuters'
 import { Option, Column, Id } from '@/types'
-import 'react-datepicker/dist/react-datepicker.css'
+import { useTaskStore } from '../store/tasks/index'
 import DatePickerComponent from './DatePickerComponent'
+import { HiMiniPencilSquare } from 'react-icons/hi2'
 
 interface ModalComponentProps {
   columns: Column[]
   isOpen: boolean
   onClose: () => void
   createTask: (columnId: Id) => void
-  onTitleChange?: (title: string) => void
-  onExecuterChange?: (executer: string) => void
-  onPriorityChange?: (priority: Option) => void
-  onStatusChange?: (status: Option) => void
-  onDateChange?: (date: string) => void
 }
 
 interface Executer {
@@ -47,34 +48,40 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
   isOpen,
   onClose,
   createTask,
-  onTitleChange = () => {},
-  onExecuterChange = () => {},
-  onPriorityChange = () => {},
-  onStatusChange = () => {},
 }) => {
+  const {
+    titleTask,
+    executerTask,
+    priorityTask,
+    statusTask,
+    projectNameTask,
+    setTitleTask,
+    setExecuterTask,
+    setPriorityTask,
+    setStatusTask,
+    setProjectNameTask,
+  } = useTaskStore()
+
   const handleSelectedPriorityChange = (option: Option) => {
-    setSelectedPriority(option)
-    onPriorityChange(option)
+    setPriorityTask(option)
   }
 
   const handleSelectedStatusChange = (option: Option) => {
-    setSelectedStatus(option)
-    onStatusChange(option)
+    setStatusTask(option)
   }
 
-  const priority: Option[] = [
+  const priorityOptions: Option[] = [
     { priority: 3, title: 'Baixa', id: 'Low' },
     { priority: 2, title: 'Média', id: 'Medium' },
     { priority: 1, title: 'Alta', id: 'High' },
   ]
 
-  const status = columns?.map(({ title, id, color }) => ({
+  const statusOptions = columns?.map(({ title, id, color }) => ({
     title,
     id,
     color,
   }))
 
-  // Fetching executers
   useEffect(() => {
     async function fetchExecuters() {
       const data = await defaultExecuters()
@@ -85,27 +92,6 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
   }, [])
 
   const [executers, setExecuters] = useState<Executer[]>([])
-  const [title, setTitle] = useState<string>('')
-  const [selectedExecuter, setSelectedExecuter] = useState<string | null>(null)
-  const [selectedPriority, setSelectedPriority] = useState<Option | null>(
-    priority[0],
-  )
-
-  const [selectedStatus, setSelectedStatus] = useState<Option | null>(
-    columns?.length > 0 ? status[0] : null,
-  )
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTitle = e.target.value
-    setTitle(newTitle)
-    onTitleChange(newTitle)
-  }
-
-  const handleExecuterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newExecuter = e.target.value
-    setSelectedExecuter(newExecuter)
-    onExecuterChange(newExecuter)
-  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
@@ -127,14 +113,36 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                 placeholder="Task sem título"
                 size="md"
                 focusBorderColor="#00A3FF"
-                value={title}
-                onChange={handleTitleChange}
+                value={titleTask}
+                onChange={(e) => setTitleTask(e.target.value)}
               />
             </div>
             <div className="pt-5">
               <TableContainer pb="115px">
                 <Table variant="simple" size="xs">
                   <Tbody>
+                    <Tr>
+                      <Td>
+                        <div className="flex flex-row items-center gap-2 pb-2 pt-4 text-sm text-[#00000066]">
+                          <HiMiniPencilSquare color="#000000" size={18} />
+                          <p className="text-sm text-[#00000066]">
+                            Nome do projeto
+                          </p>
+                        </div>
+                      </Td>
+                      <Td>
+                        <div className="flex w-fit items-center">
+                          <Input
+                            placeholder="Digite aqui"
+                            fontSize="14px"
+                            size="sm"
+                            variant="ghost"
+                            value={projectNameTask}
+                            onChange={(e) => setProjectNameTask(e.target.value)}
+                          />
+                        </div>
+                      </Td>
+                    </Tr>
                     <Tr>
                       <Td>
                         <div className="flex flex-row items-center gap-2 pb-2 pt-4 text-sm text-[#00000066]">
@@ -147,14 +155,23 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                       <Td>
                         <div className="w-fit">
                           <Select
+                            left="-5px"
+                            color={`${executerTask?.name ? '' : '#a3aab5'}`}
                             fontSize="14px"
                             variant="ghost"
                             placeholder="Selecione uma pessoa"
-                            value={selectedExecuter || ''}
-                            onChange={handleExecuterChange}
+                            value={executerTask?.name || ''}
+                            onChange={(e) => {
+                              const selectedExecuter = executers.find(
+                                (executer) => executer.name === e.target.value,
+                              )
+                              if (selectedExecuter) {
+                                setExecuterTask(selectedExecuter)
+                              }
+                            }}
                           >
-                            {executers.map((executer, index) => (
-                              <option key={index} value={executer.name}>
+                            {executers.map((executer) => (
+                              <option key={executer.name} value={executer.name}>
                                 {executer.name}
                               </option>
                             ))}
@@ -172,8 +189,8 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                       <Td>
                         <div className="">
                           <DropDownMenuComponent
-                            options={priority}
-                            selected={selectedPriority}
+                            options={priorityOptions}
+                            selected={priorityTask}
                             onSelectedChanges={handleSelectedPriorityChange}
                           />
                         </div>
@@ -197,15 +214,15 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                     <Tr>
                       <Td>
                         <div className="flex flex-row items-center gap-2 py-4 text-sm text-[#00000066]">
-                          <MdOutlineSort color="#000000" size={18} />
+                          <MdOutlineNotStarted color="#000000" size={18} />
                           <p className="text-sm text-[#00000066]">Status</p>
                         </div>
                       </Td>
                       <Td>
                         <div className="">
                           <DropDownMenuComponent
-                            options={status}
-                            selected={selectedStatus}
+                            options={statusOptions}
+                            selected={statusTask}
                             onSelectedChanges={handleSelectedStatusChange}
                           />
                         </div>
@@ -229,13 +246,14 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
               leftIcon={<FaCheck />}
               variant="solid"
               bgColor="#00A3FF"
+              _hover={{ bg: '#5FC4FF' }}
               color="#FFFFFF"
               onClick={() => {
-                if (selectedStatus) {
-                  createTask(selectedStatus.id!)
+                if (statusTask && statusTask.id) {
+                  createTask(statusTask.id)
                 }
               }}
-              disabled={!selectedStatus}
+              disabled={!statusTask || !statusTask.id}
             >
               Salvar Task
             </Button>

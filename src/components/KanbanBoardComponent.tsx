@@ -35,6 +35,8 @@ import defaultTasks from '../hooks/tasks'
 import SearchComponent from './SearchComponent'
 import ModalNewTaskComponent from './ModalNewTaskComponent'
 import defaultRequestersFunction from '../hooks/useRequesters'
+import { useTaskStore } from '../store/tasks/index'
+import { differenceInDays } from 'date-fns'
 
 const KanbanBoardComponent = () => {
   // Fetching default columns
@@ -43,6 +45,17 @@ const KanbanBoardComponent = () => {
     { id: 2, title: 'Iniciadas', color: '#C9F5FF66' },
     { id: 3, title: 'Concluído', color: '#D8FDD266' },
   ]
+
+  const {
+    titleTask,
+    executerTask,
+    priorityTask,
+    statusTask,
+    dateTask,
+    projectNameTask,
+  } = useTaskStore()
+
+  const today = new Date()
 
   // Fetching default tasks
   useEffect(() => {
@@ -155,21 +168,18 @@ const KanbanBoardComponent = () => {
       id: generateId(),
       columnId,
       priority: taskPriority?.priority ?? 0,
-      taskName: taskTitle,
-      taskTag: {
-        label: '',
-        value: '',
-      },
+      taskName: titleTask,
       requester: {
         name: selectedRequester?.name ?? '',
         avatar: selectedRequester?.avatar ?? '',
       },
       executer: {
-        name: taskExecuter.name,
-        avatar: taskExecuter.avatar,
+        name: executerTask?.name ?? '',
+        avatar: executerTask?.avatar ?? '',
       },
-      projectName: '',
-      deadline: '',
+      projectName: projectNameTask,
+      deadline: dateTask ? differenceInDays(dateTask, today).toString() : '',
+      dtt: dateTask ? differenceInDays(dateTask, today) > 10 : false,
     }
 
     setTasks([...tasks, newTask])
