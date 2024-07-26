@@ -4,7 +4,7 @@ interface TimerPlayProps {
   size?: number // Define uma prop opcional para o tamanho
 }
 
-const TimerPlay: React.FC = ({ size = 20 }: TimerPlayProps) => {
+const TimerPlay: React.FC<TimerPlayProps> = ({ size = 20 }) => {
   return (
     <svg
       width={size}
