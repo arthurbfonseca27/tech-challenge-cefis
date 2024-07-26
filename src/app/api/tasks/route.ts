@@ -27,7 +27,8 @@ export async function GET() {
       },
 
       projectName: 'Customer Portal',
-      deadline: '5 days',
+      deadline: '5',
+      dtt: false,
     },
     {
       id: generateId(),
@@ -49,7 +50,8 @@ export async function GET() {
       },
 
       projectName: 'Analytics Platform',
-      deadline: '10 days',
+      deadline: '11',
+      dtt: true,
     },
     {
       id: generateId(),
@@ -70,7 +72,8 @@ export async function GET() {
       },
 
       projectName: 'Inventory System',
-      deadline: '3 days',
+      deadline: '3',
+      dtt: false,
     },
   ])
 }
