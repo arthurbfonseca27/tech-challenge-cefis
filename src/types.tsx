@@ -30,3 +30,8 @@ export type Option = {
   id?: Id
   color?: string
 }
+
+export type Requester = {
+  name: string
+  avatar: string
+}

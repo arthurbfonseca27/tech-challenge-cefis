@@ -82,16 +82,43 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
     color,
   }))
 
+  const [executers, setExecuters] = useState<Executer[]>([])
+  const localExecuters: Executer[] = [
+    {
+      name: 'Ana Oliveira',
+      avatar:
+        'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
+    },
+
+    {
+      name: 'Pedro Santos',
+      avatar: 'https://i.imgur.com/6Fq5Arj.jpeg',
+    },
+
+    {
+      name: 'Larissa Nogueira',
+      avatar:
+        'https://images.pexels.com/photos/1043478/pexels-photo-1043478.jpeg',
+    },
+
+    {
+      name: 'Gustavo Ribeiro',
+      avatar: 'https://i.imgur.com/9r5Sh9W.jpeg',
+    },
+  ]
+
   useEffect(() => {
     async function fetchExecuters() {
-      const data = await defaultExecuters()
-      setExecuters(data.executers)
+      try {
+        const data = await defaultExecuters()
+        setExecuters([...localExecuters, ...data.executers])
+      } catch (error) {
+        setExecuters([...localExecuters])
+      }
     }
 
     fetchExecuters()
   }, [])
-
-  const [executers, setExecuters] = useState<Executer[]>([])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">

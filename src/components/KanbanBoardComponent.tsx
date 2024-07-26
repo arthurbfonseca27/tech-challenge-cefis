@@ -5,7 +5,7 @@ import ColumnComponent from './ColumnComponent'
 import { Button, useDisclosure } from '@chakra-ui/react'
 import { IoIosAdd } from 'react-icons/io'
 import ModalNewColumnComponent from './ModalNewColumnComponent'
-import { Column, Id, Task } from '@/types'
+import { Column, Id, Task, Requester } from '@/types'
 import {
   DndContext,
   DragEndEvent,
@@ -37,6 +37,27 @@ const KanbanBoardComponent = () => {
     { id: 1, title: 'Não Iniciado', color: '#F5F5F5' },
     { id: 2, title: 'Iniciadas', color: '#C9F5FF66' },
     { id: 3, title: 'Concluído', color: '#D8FDD266' },
+  ]
+
+  const defaultLocalRequesters: Requester[] = [
+    {
+      name: 'Michael Scott',
+      avatar: 'https://i.imgur.com/kP7rK5o.jpeg',
+    },
+    {
+      name: 'Sophia Taylor',
+      avatar:
+        'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg',
+    },
+    {
+      name: 'John Doe',
+      avatar: 'https://bit.ly/john-doe-avatar',
+    },
+    {
+      name: 'Emily Clark',
+      avatar:
+        'https://images.pexels.com/photos/1468374/pexels-photo-1468374.jpeg',
+    },
   ]
 
   // "Fetching" local default tasks -In addition to querying the API, I will also run it locally to ensure that the default tasks are correctly displayed in the hosting environment.
@@ -116,7 +137,7 @@ const KanbanBoardComponent = () => {
   const [color, setColor] = useState('#C9F5FF66')
   const [activeColumn, setActiveColumn] = useState<Column | null>(null)
   const [activeTask, setActiveTask] = useState<Task | null>(null)
-  const [requesters, setRequesters] = useState([])
+  const [requesters, setRequesters] = useState<Requester[]>([])
   const [selectedRequester, setSelectedRequester] = useState<
     Task['requester'] | null
   >(null)
@@ -142,8 +163,12 @@ const KanbanBoardComponent = () => {
   // Fetching default requesters
   useEffect(() => {
     async function fetchRequester() {
-      const data = await defaultRequestersFunction()
-      setRequesters(data.requesters)
+      try {
+        const data = await defaultRequestersFunction()
+        setRequesters([...defaultLocalRequesters, ...data.requesters])
+      } catch (error) {
+        setRequesters([...defaultLocalRequesters])
+      }
     }
     fetchRequester()
   }, [])
