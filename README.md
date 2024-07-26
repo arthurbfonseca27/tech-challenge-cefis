@@ -41,6 +41,8 @@ Este projeto está sendo desenvolvido com as seguintes tecnologias:
 
 ## :information_source: Como usar
 
+Um tutorial em vídeo está disponível neste [link](https://youtu.be/sV-zAxocerc).
+
 ```bash
 # Clonar este repositório
 $ git clone https://github.com/arthurbfonseca27/tech-challenge-cefis.git
