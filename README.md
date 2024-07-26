@@ -9,6 +9,7 @@
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_source-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#scroll-scripts-disponíveis">Scripts disponíveis</a>
+	<a href="#earth_americas-rotas-da-api">Rotas da API</a>
 </p>
 
 ## :rocket: O desafio
@@ -60,3 +61,11 @@ $ npm run dev
 - `build`: Build da aplicação;
 - `prepare`:  Inicializa o Husky;
 - `lint`: Escaneia a aplicação verificando e consertando erros nas aplicação;
+
+
+## :earth_americas: Rotas da API
+- GET `/agendamentos`: API para listar agendamentos;
+- POST `/agendamentos`: API para criar um agendamento;
+- PUT `/agendamentos/:id`: API para atualizar um agendamento;
+- DELETE `/agendamentos/:id`: API para deletar um agendamento;
+
