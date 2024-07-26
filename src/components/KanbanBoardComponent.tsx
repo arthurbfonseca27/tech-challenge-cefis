@@ -17,7 +17,7 @@ import {
   HStack,
 } from '@chakra-ui/react'
 import { IoIosAdd } from 'react-icons/io'
-import { Column, Id, Task, Option } from '@/types'
+import { Column, Id, Task } from '@/types'
 import {
   DndContext,
   DragEndEvent,
@@ -46,14 +46,8 @@ const KanbanBoardComponent = () => {
     { id: 3, title: 'Concluído', color: '#D8FDD266' },
   ]
 
-  const {
-    titleTask,
-    executerTask,
-    priorityTask,
-    statusTask,
-    dateTask,
-    projectNameTask,
-  } = useTaskStore()
+  const { titleTask, executerTask, priorityTask, dateTask, projectNameTask } =
+    useTaskStore()
 
   const today = new Date()
 
@@ -77,12 +71,6 @@ const KanbanBoardComponent = () => {
   const [color, setColor] = useState('#C9F5FF66')
   const [activeColumn, setActiveColumn] = useState<Column | null>(null)
   const [activeTask, setActiveTask] = useState<Task | null>(null)
-  const [taskTitle, setTaskTitle] = useState<string>('')
-  const [taskPriority, setTaskPriority] = useState<Option>()
-  const [taskExecuter, setTaskExecuter] = useState<Task['executer']>({
-    name: '',
-    avatar: '',
-  })
 
   // Fetching default requesters
   useEffect(() => {
@@ -122,10 +110,6 @@ const KanbanBoardComponent = () => {
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value)
-
-  const handleExecuterChange = (executerName: string) => {
-    setTaskExecuter((prev) => ({ ...prev, name: executerName }))
-  }
 
   const selectColor = (color: string) => setColor(color)
 
@@ -167,7 +151,7 @@ const KanbanBoardComponent = () => {
     const newTask: Task = {
       id: generateId(),
       columnId,
-      priority: taskPriority?.priority ?? 0,
+      priority: priorityTask?.priority ?? 0,
       taskName: titleTask,
       requester: {
         name: selectedRequester?.name ?? '',
@@ -315,9 +299,6 @@ const KanbanBoardComponent = () => {
           onClose={onCloseNewTask}
           columns={columns}
           createTask={createTask}
-          onTitleChange={setTaskTitle}
-          onPriorityChange={setTaskPriority}
-          onExecuterChange={handleExecuterChange}
         />
       </div>
       <SearchComponent />

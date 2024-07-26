@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  FaRegPlayCircle,
-  FaRegPauseCircle,
-  FaCheckCircle,
-} from 'react-icons/fa'
+import { FaCheckCircle } from 'react-icons/fa'
 import { Tag, TagLabel, TagLeftIcon, IconButton } from '@chakra-ui/react'
 import TimerPlay from '@/icons/TimerPlay'
 import TimerStop from '@/icons/TimerStop'
