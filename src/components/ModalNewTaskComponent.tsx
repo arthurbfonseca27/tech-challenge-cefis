@@ -9,7 +9,6 @@ import {
   Button,
   Divider,
   Input,
-  Textarea,
   Select,
   Table,
   Tbody,
@@ -23,6 +22,8 @@ import { MdOutlineSort, MdEventAvailable } from 'react-icons/md'
 import DropDownMenuComponent from './DropDownMenuComponent'
 import defaultExecuters from '../hooks/useExecuters'
 import { Option, Column, Id } from '@/types'
+import 'react-datepicker/dist/react-datepicker.css'
+import DatePickerComponent from './DatePickerComponent'
 
 interface ModalComponentProps {
   columns: Column[]
@@ -30,10 +31,10 @@ interface ModalComponentProps {
   onClose: () => void
   createTask: (columnId: Id) => void
   onTitleChange?: (title: string) => void
-  onDescriptionChange?: (description: string) => void
   onExecuterChange?: (executer: string) => void
   onPriorityChange?: (priority: Option) => void
   onStatusChange?: (status: Option) => void
+  onDateChange?: (date: string) => void
 }
 
 interface Executer {
@@ -47,7 +48,6 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
   onClose,
   createTask,
   onTitleChange = () => {},
-  onDescriptionChange = () => {},
   onExecuterChange = () => {},
   onPriorityChange = () => {},
   onStatusChange = () => {},
@@ -86,11 +86,11 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
 
   const [executers, setExecuters] = useState<Executer[]>([])
   const [title, setTitle] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
   const [selectedExecuter, setSelectedExecuter] = useState<string | null>(null)
   const [selectedPriority, setSelectedPriority] = useState<Option | null>(
     priority[0],
   )
+
   const [selectedStatus, setSelectedStatus] = useState<Option | null>(
     columns?.length > 0 ? status[0] : null,
   )
@@ -99,14 +99,6 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
     const newTitle = e.target.value
     setTitle(newTitle)
     onTitleChange(newTitle)
-  }
-
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
-    const newDescription = e.target.value
-    setDescription(newDescription)
-    onDescriptionChange(newDescription)
   }
 
   const handleExecuterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -139,15 +131,6 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                 onChange={handleTitleChange}
               />
             </div>
-            <div className="pt-5 text-base">
-              <Textarea
-                fontSize="14px"
-                placeholder="Clique para adicionar uma descrição"
-                fontWeight="normal"
-                value={description}
-                onChange={handleDescriptionChange}
-              />
-            </div>
             <div className="pt-5">
               <TableContainer pb="115px">
                 <Table variant="simple" size="xs">
@@ -162,7 +145,7 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                         </div>
                       </Td>
                       <Td>
-                        <div className="relative right-32 w-fit">
+                        <div className="w-fit">
                           <Select
                             fontSize="14px"
                             variant="ghost"
@@ -187,7 +170,7 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                         </div>
                       </Td>
                       <Td>
-                        <div className="relative right-32">
+                        <div className="">
                           <DropDownMenuComponent
                             options={priority}
                             selected={selectedPriority}
@@ -204,15 +187,9 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                         </div>
                       </Td>
                       <Td>
-                        <div className="relative right-32 w-full justify-center">
+                        <div className="w-full justify-center">
                           <div className="flex flex-row items-center">
-                            <Input
-                              width="fit"
-                              border="0px"
-                              placeholder="Select Date and Time"
-                              size="md"
-                              type="date"
-                            />
+                            <DatePickerComponent />
                           </div>
                         </div>
                       </Td>
@@ -225,7 +202,7 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
                         </div>
                       </Td>
                       <Td>
-                        <div className="relative right-32">
+                        <div className="">
                           <DropDownMenuComponent
                             options={status}
                             selected={selectedStatus}
