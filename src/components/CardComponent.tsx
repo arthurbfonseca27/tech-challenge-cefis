@@ -56,34 +56,6 @@ const CardComponent = ({ task, deleteTask }: Props) => {
     )
   }
 
-  // if (editMode) {
-  //   return (
-  //     <div
-  //       ref={setNodeRef}
-  //       style={style}
-  //       {...attributes}
-  //       {...listeners}
-  //       className="flex cursor-grab flex-row items-center justify-between rounded-xl border-2 border-black bg-[#394A53] p-8 hover:ring-[#00A3FF]"
-  //     >
-  //       <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
-  //         <textarea
-  //           className="h-[90%] w-full resize-none rounded border-none bg-transparent text-black focus:outline-none"
-  //           value={task.taskName}
-  //           autoFocus
-  //           placeholder="Conteúdo"
-  //           onBlur={toggleEditMode}
-  //           onKeyDown={(e) => {
-  //             if (e.key === 'Enter' && e.shiftKey) {
-  //               toggleEditMode()
-  //             }
-  //           }}
-  //           onChange={(e) => updateTask(task.id, e.target.value)}
-  //         ></textarea>
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
   return (
     <div
       ref={setNodeRef}

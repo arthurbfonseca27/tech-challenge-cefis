@@ -6,9 +6,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { CSS } from '@dnd-kit/utilities'
 import { Column, Id, Task } from '@/types'
 import { SortableContext, useSortable } from '@dnd-kit/sortable'
-// import { IoIosAdd } from 'react-icons/io'
 import CardComponent from './CardComponent'
-// import ModalNewTaskComponent from './ModalNewTaskComponent'
 
 interface ColumnComponentProps {
   column: Column
@@ -24,17 +22,11 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
   column,
   deleteColumn,
   updateColumn,
-  // createTask,
   deleteTask,
   updateTask,
   tasks,
 }) => {
   const [editMode, setEditMode] = useState(false)
-  // const {
-  //   isOpen: isOpenNewTask,
-  //   onOpen: onOpenNewTask,
-  //   onClose: onCloseNewTask,
-  // } = useDisclosure()
 
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id)
@@ -91,19 +83,22 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
           >
             <div>
               {editMode ? (
-                <input
-                  className="border-1 items-start justify-start rounded border-black bg-[#67676766] outline-none"
-                  value={column.title}
-                  onChange={(e) => updateColumn(column.id, e.target.value)}
-                  autoFocus
-                  onBlur={() => {
-                    setEditMode(false)
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key !== 'Enter') return
-                    setEditMode(false)
-                  }}
-                />
+                <div>
+                  <input
+                    className="border-1 items-start justify-start rounded border-black bg-[#67676766] outline-none"
+                    value={column.title}
+                    onChange={(e) => updateColumn(column.id, e.target.value)}
+                    autoFocus
+                    onBlur={() => {
+                      setEditMode(false)
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key !== 'Enter') return
+                      setEditMode(false)
+                    }}
+                  />
+                  <div className="pb-5"></div>
+                </div>
               ) : (
                 <p className="w-fit max-w-80 truncate pb-4 pt-1">
                   {column.title}

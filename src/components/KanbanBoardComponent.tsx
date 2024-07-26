@@ -2,21 +2,9 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
 import ColumnComponent from './ColumnComponent'
-import {
-  Button,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Input,
-  Box,
-  HStack,
-} from '@chakra-ui/react'
+import { Button, useDisclosure } from '@chakra-ui/react'
 import { IoIosAdd } from 'react-icons/io'
+import ModalNewColumnComponent from './ModalNewColumnComponent'
 import { Column, Id, Task } from '@/types'
 import {
   DndContext,
@@ -39,38 +27,117 @@ import { useTaskStore } from '../store/tasks/index'
 import { differenceInDays } from 'date-fns'
 
 const KanbanBoardComponent = () => {
-  // Fetching default columns
+  // Function to generate the ids of tasks and columns
+  const generateId = () => {
+    return Math.floor(Math.random() * 10001)
+  }
+
+  // "Fetching" default columns (Not started, Started, Done)
   const defaultColumns: Column[] = [
     { id: 1, title: 'Não Iniciado', color: '#F5F5F5' },
     { id: 2, title: 'Iniciadas', color: '#C9F5FF66' },
     { id: 3, title: 'Concluído', color: '#D8FDD266' },
   ]
 
-  const { titleTask, executerTask, priorityTask, dateTask, projectNameTask } =
-    useTaskStore()
+  // "Fetching" local default tasks -In addition to querying the API, I will also run it locally to ensure that the default tasks are correctly displayed in the hosting environment.
+  const defaultLocalTasks: Task[] = [
+    {
+      id: generateId(),
+      columnId: 1,
+      priority: 3,
+      taskName: 'Develop user registration',
+      requester: {
+        name: 'Julia Roberts',
+        avatar:
+          'https://images.pexels.com/photos/3348748/pexels-photo-3348748.jpeg',
+      },
+      executer: {
+        name: 'Carlos Mendes',
+        avatar:
+          'https://images.pexels.com/photos/3812944/pexels-photo-3812944.jpeg',
+      },
+      projectName: 'User Management System',
+      deadline: '5',
+      dtt: false,
+    },
+    {
+      id: generateId(),
+      columnId: 2,
+      priority: 1,
+      taskName: 'Design analytics dashboard',
+      requester: {
+        name: 'Diana Prince',
+        avatar:
+          'https://images.pexels.com/photos/1385472/pexels-photo-1385472.jpeg',
+      },
+      executer: {
+        name: 'Miguel Santos',
+        avatar:
+          'https://images.pexels.com/photos/4725133/pexels-photo-4725133.jpeg',
+      },
+      projectName: 'Data Insights Platform',
+      deadline: '11',
+      dtt: true,
+    },
+    {
+      id: generateId(),
+      columnId: 3,
+      priority: 2,
+      taskName: 'Enhance search performance',
+      requester: {
+        name: 'Liam White',
+        avatar:
+          'https://images.pexels.com/photos/2100063/pexels-photo-2100063.jpeg',
+      },
+      executer: {
+        name: 'Ana Pereira',
+        avatar:
+          'https://images.pexels.com/photos/3228213/pexels-photo-3228213.jpeg',
+      },
+      projectName: 'E-commerce Backend',
+      deadline: '3',
+      dtt: false,
+    },
+  ]
 
-  const today = new Date()
+  // "Fetching" colors for the column creation
+  const colors = [
+    { value: '#C9F5FF66' },
+    { value: '#D8FDD266' },
+    { value: '#F5F5F5' },
+    { value: '#FFD70066' },
+    { value: '#FFB6C166' },
+  ]
 
-  // Fetching default tasks
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const defaultFetchedTasks = await defaultTasks()
-      setTasks(defaultFetchedTasks)
-    }
-
-    fetchTasks()
-  }, [])
-
-  const [requesters, setRequesters] = useState([])
-  const [selectedRequester, setSelectedRequester] = useState<
-    Task['requester'] | null
-  >(null)
+  // Variable declaration
   const [tasks, setTasks] = useState<Task[]>([])
   const [columns, setColumns] = useState<Column[]>(defaultColumns)
   const [title, setTitle] = useState('')
   const [color, setColor] = useState('#C9F5FF66')
   const [activeColumn, setActiveColumn] = useState<Column | null>(null)
   const [activeTask, setActiveTask] = useState<Task | null>(null)
+  const [requesters, setRequesters] = useState([])
+  const [selectedRequester, setSelectedRequester] = useState<
+    Task['requester'] | null
+  >(null)
+
+  // Fetching data using Zustand
+  const { titleTask, executerTask, priorityTask, dateTask, projectNameTask } =
+    useTaskStore()
+
+  // Fetching default tasks (using Next)
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const defaultFetchedTasks = await defaultTasks()
+        setTasks([...defaultLocalTasks, ...defaultFetchedTasks])
+      } catch (error) {
+        setTasks([...defaultLocalTasks])
+      }
+    }
+
+    fetchTasks()
+  }, [])
 
   // Fetching default requesters
   useEffect(() => {
@@ -81,20 +148,14 @@ const KanbanBoardComponent = () => {
     fetchRequester()
   }, [])
 
+  // Function to set a random requester to the new task created
   const getRandomRequester = () => {
     const randomRequester =
       requesters[Math.floor(Math.random() * requesters.length)]
     setSelectedRequester(randomRequester)
   }
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 3, // 3px
-      },
-    }),
-  )
-
+  // Use for modal behaviors
   const {
     isOpen: isOpenNewColumn,
     onOpen: onOpenNewColumn,
@@ -108,11 +169,14 @@ const KanbanBoardComponent = () => {
 
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns])
 
+  // Use to create a new column
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value)
 
+  // Use to create a new column
   const selectColor = (color: string) => setColor(color)
 
+  // Use to create a new column
   const createNewColumn = () => {
     const columnToAdd: Column = {
       id: generateId(),
@@ -125,6 +189,7 @@ const KanbanBoardComponent = () => {
     setColor('#C9F5FF66')
   }
 
+  // Use to delete a non-default column
   const deleteColumn = (id: Id) => {
     const filteredColumns = columns.filter((col) => col.id !== id)
     setColumns(filteredColumns)
@@ -133,6 +198,7 @@ const KanbanBoardComponent = () => {
     setTasks(newTasks)
   }
 
+  // Use to edit the title of a column
   const updateColumn = (id: Id, title: string) => {
     const newColumns = columns.map((col) => {
       if (col.id !== id) return col
@@ -142,11 +208,13 @@ const KanbanBoardComponent = () => {
     setColumns(newColumns)
   }
 
+  // Handler to open a new task
   const handleOpenNewTask = () => {
     getRandomRequester()
     onOpenNewTask()
   }
 
+  // Use to create a new task
   const createTask = (columnId: Id) => {
     const newTask: Task = {
       id: generateId(),
@@ -162,19 +230,23 @@ const KanbanBoardComponent = () => {
         avatar: executerTask?.avatar ?? '',
       },
       projectName: projectNameTask,
-      deadline: dateTask ? differenceInDays(dateTask, today).toString() : '',
-      dtt: dateTask ? differenceInDays(dateTask, today) > 10 : false,
+      deadline: dateTask
+        ? differenceInDays(dateTask, new Date()).toString()
+        : '',
+      dtt: dateTask ? differenceInDays(dateTask, new Date()) > 10 : false,
     }
 
     setTasks([...tasks, newTask])
     onCloseNewTask()
   }
 
+  // Use for delete a task
   const deleteTask = (id: Id) => {
     const newTasks = tasks.filter((task) => task.id !== id)
     setTasks(newTasks)
   }
 
+  // Use for update a task - actually, I prefer don't use it, but it may be necessary as the project grows
   const updateTask = (id: Id, content: string) => {
     const newTasks = tasks.map((task) => {
       if (task.id !== id) return task
@@ -183,8 +255,17 @@ const KanbanBoardComponent = () => {
     setTasks(newTasks)
   }
 
+  // Use for drag and drop functions
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 3, // 3px
+      },
+    }),
+  )
+
+  // Use for drag and drop functions
   const onDragStart = (event: DragStartEvent) => {
-    console.log('DRAG START', event)
     if (event.active.data.current?.type === 'Column') {
       setActiveColumn(event.active.data.current.column)
     }
@@ -194,6 +275,7 @@ const KanbanBoardComponent = () => {
     }
   }
 
+  // Use for drag and drop functions
   const onDragEnd = (event: DragEndEvent) => {
     setActiveColumn(null)
     setActiveTask(null)
@@ -220,6 +302,7 @@ const KanbanBoardComponent = () => {
     })
   }
 
+  // Use for drag and drop functions
   const onDragOver = (event: DragOverEvent) => {
     const { active, over } = event
 
@@ -260,14 +343,6 @@ const KanbanBoardComponent = () => {
       })
     }
   }
-
-  const colors = [
-    { value: '#C9F5FF66' },
-    { value: '#D8FDD266' },
-    { value: '#F5F5F5' },
-    { value: '#FFD70066' },
-    { value: '#FFB6C166' },
-  ]
 
   return (
     <DndContext
@@ -319,51 +394,16 @@ const KanbanBoardComponent = () => {
             ))}
           </SortableContext>
         </div>
-        <Modal isOpen={isOpenNewColumn} onClose={onCloseNewColumn}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Adicionar coluna</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <p className="pb-1 font-medium">Título:</p>
-              <Input
-                value={title}
-                onChange={handleTitleChange}
-                placeholder="Digite o título da coluna"
-                size="md"
-              />
-              <p className="pb-1 pt-4 font-medium">Cor:</p>
-              <HStack spacing={2}>
-                {colors.map((colorOption) => (
-                  <Box
-                    key={colorOption.value}
-                    backgroundColor={colorOption.value}
-                    borderRadius="full"
-                    p={3}
-                    borderWidth={color === colorOption.value ? 2 : 1}
-                    borderColor={
-                      color === colorOption.value ? '#323232' : 'gray.200'
-                    }
-                    onClick={() => selectColor(colorOption.value)}
-                  ></Box>
-                ))}
-              </HStack>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                borderColor="#323232"
-                variant="outline"
-                mr={3}
-                onClick={createNewColumn}
-              >
-                Adicionar
-              </Button>
-              <Button variant="ghost" onClick={onCloseNewColumn}>
-                Cancelar
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <ModalNewColumnComponent
+          isOpen={isOpenNewColumn}
+          onClose={onCloseNewColumn}
+          title={title}
+          handleTitleChange={handleTitleChange}
+          colors={colors}
+          color={color}
+          selectColor={selectColor}
+          createNewColumn={createNewColumn}
+        />
       </div>
       {typeof window !== 'undefined' &&
         createPortal(
@@ -393,10 +433,6 @@ const KanbanBoardComponent = () => {
         )}
     </DndContext>
   )
-}
-
-function generateId() {
-  return Math.floor(Math.random() * 10001)
 }
 
 export default KanbanBoardComponent

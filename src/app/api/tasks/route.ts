@@ -13,10 +13,6 @@ export async function GET() {
       columnId: 1,
       priority: 1,
       taskName: 'Implement login feature',
-      taskTag: {
-        label: 'Auth',
-        value: '+1000',
-      },
       requester: {
         name: 'Alice Johnson',
         avatar: 'https://bit.ly/alice-johnson',
@@ -35,10 +31,6 @@ export async function GET() {
       columnId: 2,
       priority: 2,
       taskName: 'Create dashboard layout',
-      taskTag: {
-        label: 'UI/UX',
-        value: '+500',
-      },
       requester: {
         name: 'Bob Smith',
         avatar: 'https://bit.ly/bob-smith',
@@ -58,10 +50,6 @@ export async function GET() {
       columnId: 3,
       priority: 3,
       taskName: 'Optimize database queries',
-      taskTag: {
-        label: 'DB',
-        value: '+300',
-      },
       requester: {
         name: 'Charlie Brown',
         avatar: 'https://bit.ly/charlie-brown',

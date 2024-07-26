@@ -22,19 +22,19 @@ const SearchComponent = () => {
         </div>
         <SelectComponent
           title="Executante"
-          options={['Opção 1', 'Opção 2', 'Opção 3']}
+          options={['Lucas Pereira', 'Carla Souza', 'Felipe Lima']}
         />
         <SelectComponent
           title="Solicitante"
-          options={['Opção 1', 'Opção 2', 'Opção 3']}
+          options={['Alice Johnson', 'Bob Smith', 'Ethan Hunt']}
         />
         <SelectComponent
           title="Projetos"
-          options={['Opção 1', 'Opção 2', 'Opção 3']}
+          options={['CEFIS', 'NinePay', 'Kanban Board']}
         />
         <SelectComponent
           title="Tipo"
-          options={['Opção 1', 'Opção 2', 'Opção 3']}
+          options={['Não iniciada', 'Iniciada', 'Concluída']}
         />
       </div>
     </div>
