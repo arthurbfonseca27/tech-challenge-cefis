@@ -31,7 +31,7 @@ import {
 import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import CardComponent from './CardComponent'
-import defaultTasks from '../hooks/tasks'
+import defaultTasks from '../hooks/useTasks'
 import SearchComponent from './SearchComponent'
 import ModalNewTaskComponent from './ModalNewTaskComponent'
 import defaultRequestersFunction from '../hooks/useRequesters'
