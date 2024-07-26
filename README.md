@@ -12,10 +12,12 @@
 </p>
 
 ## :rocket: O desafio
-O projeto "Desafio Kanban - Frontend" tem como objetivo desenvolver a interface de um quadro Kanban, seguindo o layout fornecido pela empresa [CEFIS](https://cefis.com.br/) e utilizando dados fictícios. Os requisitos obrigatórios incluem a implementação das colunas "A Fazer", "Fazendo" e "Feito", permitindo que os cards sejam arrastáveis entre essas colunas. Além disso, as tecnologias requisitadas são Next.js e Tailwind CSS.
+O projeto "Desafio Kanban - Frontend" tem como objetivo desenvolver a interface de um quadro Kanban, seguindo o layout fornecido pela empresa [CEFIS](https://cefis.com.br/) e utilizando dados fictícios. Os requisitos obrigatórios incluem a implementação das colunas "A Fazer", "Fazendo" e "Feito", permitindo que os cards sejam arrastáveis entre essas colunas. Além disso, as tecnologias requisitadas são Next.js e Tailwind CSS. 
 
-![Demo showing the finished product, the Kanban Board](docs/KanbanBoardDemoPart1.gif)
-![Demo showing the finished product, the Kanban Board](docs/KanbanBoardDemoPart2.gif)
+Entre as melhorias que implementei, destaco a criação de colunas personalizadas e arrastáveis, conforme demonstrado nos GIFs abaixo. Vale ressaltar que apenas as colunas personalizadas podem ser apagadas, enquanto as colunas padrão, como "A Fazer", "Fazendo" e "Feito", permanecem fixas. O produto final pode ser acessado através deste [link](https://tech-challenge-cefis.vercel.app/).
+
+![Demonstração do produto final](docs/KanbanBoardDemoPart1.gif)
+![Demonstração do produto final](docs/KanbanBoardDemoPart2.gif)
 
 ## :memo: Requisitos
 
