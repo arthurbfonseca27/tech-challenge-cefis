@@ -1,61 +1,54 @@
 
 <h1 align="center">
-  
+  Tech Challenge CEFIS 🚀
 </h1>
 
 <p align="center">
-<img src="https://i.imgur.com/pV1nEai.png" alt="Texto alternativo" >
-
+	<a href="#rocket-requisitos">Desafio</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-requisitos">Requisitos</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#scroll-scripts-disponíveis">Scripts disponíveis</a>
 </p>
 
+## :rocket: Desafio
+O projeto "Desafio Kanban - Frontend" tem como objetivo desenvolver a interface de um quadro Kanban, seguindo o layout fornecido pela empresa [CEFIS](https://cefis.com.br/) e utilizando dados fictícios. Os requisitos obrigatórios incluem a implementação das colunas "A Fazer", "Fazendo" e "Feito", permitindo que os cards sejam arrastáveis entre essas colunas. Além disso, as tecnologias requisitadas são Next.js e Tailwind CSS.
 
 ## :memo: Requisitos
 
 | Ferramenta| Versão  | Descrição                                    |
 |-----------|---------|----------------------------------------------|
-| [NodeJS](https://nodejs.org/en/)              | 16.14.0 | Ambiente de execução Javascript server-side  |
-| [Yarn](https://yarnpkg.com/)                 | 1.22.17 | Gerenciador de pacotes JS                    |
+| [NodeJS](https://nodejs.org/en/)              | 20.13.1 | Ambiente de execução Javascript server-side  |
+| [NPM](https://www.npmjs.com/)                 | 10.8.1 | Gerenciador de pacotes JS                    |
 | [Git](https://git-scm.com/)           | | |
 
 
-## :rocket: Tecnologias
+## :man_technologist: Tecnologias
 
 Este projeto está sendo desenvolvido com as seguintes tecnologias:
 
 -  Linguagem: [Typescript](https://www.typescriptlang.org/);
 -  Biblioteca JS para front-end: [ReactJS](https://reactjs.org/);
--  HTTP client: [Axios](https://github.com/axios/axios);
--  Estilização: [Styled-Components](https://www.styled-components.com/) + [React-Icons](https://react-icons.github.io/react-icons/) + [Polished](https://polished.js.org/docs/);
--  Rotas: [react-router-dom v6](https://reactrouter.com/docs/en/v6/getting-started/overview);
--  Padronização: [EditorConfig](https://editorconfig.org/) + [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/);
--  Git Hook: [Husky](https://typicode.github.io/husky/#/) + [Lint-Staged](https://github.com/okonet/lint-staged) + [Commit lint](https://commitlint.js.org/#/);
--  Testes: [Jest](https://jestjs.io/) + [React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro/);
--  Documentação: [Storybook](https://storybook.js.org/);
+-  Estilização: [Tailwind](https://tailwindcss.com/) + [React-Icons](https://react-icons.github.io/react-icons/) + [Chakra UI](https://v2.chakra-ui.com/);
+-  Framework Fullstack: [Next.js](https://nextjs.org/);
+-  Padronização: [Rocketseat ESLint Config](https://github.com/Rocketseat/eslint-config-rocketseat) + [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/);
+-  Git Hook: [Husky](https://typicode.github.io/husky/#/);
 
 ## :information_source: Como usar
 
-É necessário criar o ```.env``` seguindo o padrão das variáveis de ambiente do ```.env.example```
-
 ```bash
 # Clonar este repositório
-$ git clone https://github.com/Guilherme-Farias/vaccine-scheduler-frontend
+$ git clone https://github.com/arthurbfonseca27/tech-challenge-cefis.git
 # Ir para o repositório
-$ cd vaccine-scheduler-frontend
+$ cd tech-challenge-cefis
 # Instalar as dependências
-$ yarn install
+$ npm install
 # Rodar a aplicação em ambiente de desenvolvimento
-$ yarn start
+$ npm run dev
 ```
 ## :scroll: Scripts disponíveis
 
-- `start`: Inicia a aplicação;
+- `dev`: Inicia a aplicação;
 - `build`: Build da aplicação;
-- `test`: Realiza os testes de toda a aplicação;
-- `test:watch`: Realiza os testes e fica assistindo por mudanças nos arquivos;
-- `test:coverage`: Realiza todos os testes verificando a cobertura de testes em todos os arquivos;
-- `eject`: Ejeta o CRA;
-- `generate`: Utilitário para criar componente com os seus devidos arquivos (Teste, Documentação, Estilo e exportador);
 - `prepare`:  Inicializa o Husky;
 - `lint`: Escaneia a aplicação verificando e consertando erros nas aplicação;
-- `sb`: Inicializa a documentação do Storybook no `localhost:6006`;
-- `sb:build`: Build do Storybook;
