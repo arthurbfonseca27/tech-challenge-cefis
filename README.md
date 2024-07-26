@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+<h1 align="center">
+  
+</h1>
 
-First, run the development server:
+<p align="center">
+<img src="https://i.imgur.com/pV1nEai.png" alt="Texto alternativo" >
+
+</p>
+
+
+## :memo: Requisitos
+
+| Ferramenta| Versão  | Descrição                                    |
+|-----------|---------|----------------------------------------------|
+| [NodeJS](https://nodejs.org/en/)              | 16.14.0 | Ambiente de execução Javascript server-side  |
+| [Yarn](https://yarnpkg.com/)                 | 1.22.17 | Gerenciador de pacotes JS                    |
+| [Git](https://git-scm.com/)           | | |
+
+
+## :rocket: Tecnologias
+
+Este projeto está sendo desenvolvido com as seguintes tecnologias:
+
+-  Linguagem: [Typescript](https://www.typescriptlang.org/);
+-  Biblioteca JS para front-end: [ReactJS](https://reactjs.org/);
+-  HTTP client: [Axios](https://github.com/axios/axios);
+-  Estilização: [Styled-Components](https://www.styled-components.com/) + [React-Icons](https://react-icons.github.io/react-icons/) + [Polished](https://polished.js.org/docs/);
+-  Rotas: [react-router-dom v6](https://reactrouter.com/docs/en/v6/getting-started/overview);
+-  Padronização: [EditorConfig](https://editorconfig.org/) + [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/);
+-  Git Hook: [Husky](https://typicode.github.io/husky/#/) + [Lint-Staged](https://github.com/okonet/lint-staged) + [Commit lint](https://commitlint.js.org/#/);
+-  Testes: [Jest](https://jestjs.io/) + [React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro/);
+-  Documentação: [Storybook](https://storybook.js.org/);
+
+## :information_source: Como usar
+
+É necessário criar o ```.env``` seguindo o padrão das variáveis de ambiente do ```.env.example```
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clonar este repositório
+$ git clone https://github.com/Guilherme-Farias/vaccine-scheduler-frontend
+# Ir para o repositório
+$ cd vaccine-scheduler-frontend
+# Instalar as dependências
+$ yarn install
+# Rodar a aplicação em ambiente de desenvolvimento
+$ yarn start
 ```
+## :scroll: Scripts disponíveis
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `start`: Inicia a aplicação;
+- `build`: Build da aplicação;
+- `test`: Realiza os testes de toda a aplicação;
+- `test:watch`: Realiza os testes e fica assistindo por mudanças nos arquivos;
+- `test:coverage`: Realiza todos os testes verificando a cobertura de testes em todos os arquivos;
+- `eject`: Ejeta o CRA;
+- `generate`: Utilitário para criar componente com os seus devidos arquivos (Teste, Documentação, Estilo e exportador);
+- `prepare`:  Inicializa o Husky;
+- `lint`: Escaneia a aplicação verificando e consertando erros nas aplicação;
+- `sb`: Inicializa a documentação do Storybook no `localhost:6006`;
+- `sb:build`: Build do Storybook;
