@@ -36,6 +36,7 @@ Este projeto está sendo desenvolvido com as seguintes tecnologias:
 -  Biblioteca JS para front-end: [ReactJS](https://reactjs.org/);
 -  Estilização: [Tailwind](https://tailwindcss.com/) + [React-Icons](https://react-icons.github.io/react-icons/) + [Chakra UI](https://v2.chakra-ui.com/);
 -  Framework Fullstack: [Next.js](https://nextjs.org/);
+-  Gerenciamento de estados: [Zustand](https://zustand-demo.pmnd.rs/);
 -  Padronização: [Rocketseat ESLint Config](https://github.com/Rocketseat/eslint-config-rocketseat) + [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/);
 -  Git Hook: [Husky](https://typicode.github.io/husky/#/);
 
