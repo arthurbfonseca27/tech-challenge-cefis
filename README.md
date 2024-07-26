@@ -64,8 +64,6 @@ $ npm run dev
 
 
 ## :earth_americas: Rotas da API
-- GET `/agendamentos`: API para listar agendamentos;
-- POST `/agendamentos`: API para criar um agendamento;
-- PUT `/agendamentos/:id`: API para atualizar um agendamento;
-- DELETE `/agendamentos/:id`: API para deletar um agendamento;
-
+- GET `/tasks`: API para listar tarefas;
+- GET `/requesters`: API para listar solicitantes;
+- GET `/executers`: API para listar executantes;
