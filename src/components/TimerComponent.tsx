@@ -41,7 +41,9 @@ const TimerComponent = () => {
 
   return (
     <div className="flex flex-row items-center justify-between gap-2">
-      <div className="items-center text-sm font-semibold text-[#00000066]">
+      <div
+        className={`${time === 0 || isActive === false ? 'pt-1' : ''} items-center text-sm font-semibold text-[#00000066]`}
+      >
         {`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}
       </div>
       {isActive ? (
@@ -75,7 +77,7 @@ const TimerComponent = () => {
           size="lg"
           _hover={{ bg: 'transparent' }}
           aria-label="Start timer"
-          icon={<TimerPlay size={28} />}
+          icon={<TimerPlay size={32} />}
         />
       )}
       {time !== 0 && (

@@ -129,9 +129,7 @@ const CardComponent = ({ task, deleteTask }: Props) => {
                 <div className="flex flex-row items-center gap-2 text-sm font-normal text-[#00000099] text-black">
                   <Calendar />
                   <p>
-                    {parseInt(task.deadline) === 0
-                      ? 'Prazo máximo: Hoje às 12h'
-                      : 'Atrasado'}
+                    {parseInt(task.deadline) === 0 ? 'Hoje às 12h' : 'Atrasado'}
                   </p>
                 </div>
               </Tag>
