@@ -121,10 +121,27 @@ const CardComponent = ({ task, deleteTask }: Props) => {
             <p className="max-w-xs truncate">{task.projectName}</p>
           </div>
           <div className="flex h-12 flex-row items-center justify-between pt-4">
-            <div className="flex flex-row items-center gap-2 text-sm text-[#00000099]">
-              <Calendar />
-              <p>Prazo máximo: {task.deadline} dias</p>
-            </div>
+            {parseInt(task.deadline) <= 0 ? (
+              <Tag
+                bg={`${parseInt(task.deadline) === 0 ? '#F2BB6833' : '#F4E3E3'}`}
+                borderRadius="full"
+              >
+                <div className="flex flex-row items-center gap-2 text-sm font-normal text-[#00000099] text-black">
+                  <Calendar />
+                  <p>
+                    {parseInt(task.deadline) === 0
+                      ? 'Prazo máximo: Hoje às 12h'
+                      : 'Atrasado'}
+                  </p>
+                </div>
+              </Tag>
+            ) : (
+              <div className="flex flex-row items-center gap-2 text-sm text-[#00000099]">
+                <Calendar />
+                <p>Prazo máximo: {task.deadline} dias</p>
+              </div>
+            )}
+
             <TimerComponent />
           </div>
         </div>
