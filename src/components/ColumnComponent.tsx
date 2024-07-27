@@ -59,7 +59,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
       <div
         ref={setNodeRef}
         style={style}
-        className="h-[600px] w-[500px] rounded-lg border-2 border-[#00A3FF] text-base font-medium opacity-40"
+        className="h-[520px] w-[500px] rounded-lg border-2 border-[#00A3FF] text-base font-medium opacity-40"
       ></div>
     )
   }
@@ -123,7 +123,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             )}
           </div>
         </div>
-        <div className="flex h-[500px] flex-grow flex-col gap-1 overflow-y-auto overflow-x-hidden">
+        <div className="flex h-[450px] flex-grow flex-col gap-1 overflow-y-auto overflow-x-hidden">
           <SortableContext items={tasksIds}>
             {tasks.map((task) => (
               <CardComponent
@@ -135,26 +135,6 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             ))}
           </SortableContext>
         </div>
-        {/* <div className="flex w-full flex-row items-center pt-4">
-          <Button
-            leftIcon={<IoIosAdd />}
-            bgColor="transparent"
-            variant="ghost"
-            borderColor="#323232"
-            width="full"
-            onClick={() => {
-              onOpenNewTask()
-              createTask(column.id)
-            }}
-            _hover={{ bg: 'transparent' }}
-          >
-            Nova task
-          </Button>
-          <ModalNewTaskComponent
-            isOpen={isOpenNewTask}
-            onClose={onCloseNewTask}
-          />
-        </div> */}
       </div>
     </div>
   )

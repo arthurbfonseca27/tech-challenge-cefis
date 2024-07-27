@@ -142,6 +142,13 @@ const KanbanBoardComponent = () => {
     Task['requester'] | null
   >(null)
 
+  // State for filters
+  const [filterColumnIds, setFilterColumnIds] = useState<string[]>([])
+  const [filterExecuter, setFilterExecuter] = useState<string[]>([])
+  const [filterRequester, setFilterRequester] = useState<string[]>([])
+  const [filterProject, setFilterProject] = useState<string[]>([])
+  const [searchTerm, setSearchTerm] = useState<string>('')
+
   // Fetching data using Zustand
   const { titleTask, executerTask, priorityTask, dateTask, projectNameTask } =
     useTaskStore()
@@ -172,6 +179,74 @@ const KanbanBoardComponent = () => {
     }
     fetchRequester()
   }, [])
+
+  // Function to set the filter column ID
+  const handleFilterColumnChange = (ids: string[]) => {
+    setFilterColumnIds(ids)
+  }
+
+  const handleFilterExecuterChange = (values: string[]) => {
+    setFilterExecuter(values)
+  }
+
+  const handleFilterRequesterChange = (values: string[]) => {
+    setFilterRequester(values)
+  }
+
+  const handleFilterProjectChange = (values: string[]) => {
+    setFilterProject(values)
+  }
+
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term)
+  }
+
+  const filteredColumns = useMemo(() => {
+    if (filterColumnIds.length > 0) {
+      return columns.filter((column) =>
+        filterColumnIds.includes(column.id.toString()),
+      )
+    }
+    return columns
+  }, [columns, filterColumnIds])
+
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task) => {
+      const matchesExecuter =
+        filterExecuter.length === 0
+          ? true
+          : filterExecuter.includes(task.executer.name)
+      const matchesRequester =
+        filterRequester.length === 0
+          ? true
+          : filterRequester.includes(task.requester.name)
+      const matchesProject =
+        filterProject.length === 0
+          ? true
+          : filterProject.includes(task.projectName)
+      const matchesColumn =
+        filterColumnIds.length === 0
+          ? true
+          : filterColumnIds.includes(task.columnId.toString())
+      const matchesSearchTerm =
+        task.taskName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        task.id.toString().includes(searchTerm)
+      return (
+        matchesExecuter &&
+        matchesRequester &&
+        matchesProject &&
+        matchesColumn &&
+        matchesSearchTerm
+      )
+    })
+  }, [
+    tasks,
+    filterExecuter,
+    filterRequester,
+    filterProject,
+    filterColumnIds,
+    searchTerm,
+  ])
 
   // Function to set a random requester to the new task created
   const getRandomRequester = () => {
@@ -401,11 +476,20 @@ const KanbanBoardComponent = () => {
           createTask={createTask}
         />
       </div>
-      <SearchComponent />
+      <SearchComponent
+        columns={columns}
+        tasks={tasks}
+        onFilterColumnChange={handleFilterColumnChange}
+        onFilterExecuterChange={handleFilterExecuterChange}
+        onFilterRequesterChange={handleFilterRequesterChange}
+        onFilterProjectChange={handleFilterProjectChange}
+        onSearchChange={handleSearchChange}
+      />
+
       <div className="flex flex-row">
         <div className="flex w-fit flex-row justify-center gap-3">
           <SortableContext items={columnsId}>
-            {columns.map((column) => (
+            {filteredColumns.map((column) => (
               <ColumnComponent
                 key={column.id}
                 column={column}
@@ -414,7 +498,9 @@ const KanbanBoardComponent = () => {
                 createTask={createTask}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
-                tasks={tasks.filter((task) => task.columnId === column.id)}
+                tasks={filteredTasks.filter(
+                  (task) => task.columnId === column.id,
+                )}
               />
             ))}
           </SortableContext>
