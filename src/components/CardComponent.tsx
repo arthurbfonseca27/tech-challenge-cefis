@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { Id, Task } from '@/types'
 import { MdDeleteOutline, MdOutlineInventory2 } from 'react-icons/md'
-import { IconButton, Tag, Avatar } from '@chakra-ui/react'
+import { Tag, Avatar } from '@chakra-ui/react'
 import { FaArrowRightLong } from 'react-icons/fa6'
 import { RxDividerVertical } from 'react-icons/rx'
 import { useSortable } from '@dnd-kit/sortable'
@@ -68,7 +68,7 @@ const CardComponent = ({ task, deleteTask }: Props) => {
       <div className="flex w-full flex-row">
         <PriorityComponent priority={task.priority} />
         <div className="flex w-full flex-col py-4 pl-4 pr-6">
-          <div className="flex w-full flex-row items-center justify-between gap-2">
+          <div className="flex flex-row items-center justify-between gap-2">
             <div className="flex w-fit flex-row items-center gap-5">
               <p className="max-w-56 truncate">{task.taskName}</p>
               <Tag
@@ -83,18 +83,16 @@ const CardComponent = ({ task, deleteTask }: Props) => {
                 </div>
               </Tag>
             </div>
-            <div className="flex flex-row items-center gap-x-10 pr-4">
+            <div className="flex flex-row items-center gap-x-10">
               <div className="text-[#394A53] opacity-60 hover:text-red-500 hover:opacity-100">
-                <IconButton
+                <button
+                  className="bg-transparent pr-1"
                   onClick={() => {
                     deleteTask(task.id)
                   }}
-                  variant="solid"
-                  bg="transparent"
-                  _hover={{ bg: 'transparent', color: '#800000' }}
-                  aria-label="Delete Column"
-                  icon={<MdDeleteOutline size={24} />}
-                />
+                >
+                  {<MdDeleteOutline size={24} />}
+                </button>
               </div>
             </div>
           </div>

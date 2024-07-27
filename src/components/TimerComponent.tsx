@@ -71,14 +71,9 @@ const TimerComponent = () => {
           </button>
         </div>
       ) : (
-        <IconButton
-          onClick={toggle}
-          bgColor="transparent"
-          size="lg"
-          _hover={{ bg: 'transparent' }}
-          aria-label="Start timer"
-          icon={<TimerPlay size={32} />}
-        />
+        <button className="bg-transparent" onClick={toggle}>
+          {<TimerPlay size={32} />}
+        </button>
       )}
       {time !== 0 && (
         <div className="animate-fade-left animate-ease-in-out">
