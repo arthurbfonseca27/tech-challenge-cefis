@@ -487,7 +487,7 @@ const KanbanBoardComponent = () => {
       />
 
       <div className="flex flex-row">
-        <div className="flex w-fit flex-row justify-center gap-3">
+        <div className="lg:md-fit flex justify-center gap-3 sm:max-w-[50%] sm:flex-col sm:overflow-x-auto md:w-fit md:max-w-none md:flex-col lg:max-w-none lg:flex-row">
           <SortableContext items={columnsId}>
             {filteredColumns.map((column) => (
               <ColumnComponent
