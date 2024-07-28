@@ -75,7 +75,7 @@ const TimerComponent = () => {
           {<TimerPlay size={32} />}
         </button>
       )}
-      {time !== 0 && (
+      {(isActive || time !== 0) && (
         <div className="animate-fade-left animate-ease-in-out">
           <IconButton
             onClick={reset}
