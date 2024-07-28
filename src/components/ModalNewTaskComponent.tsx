@@ -94,18 +94,20 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
 
     {
       name: 'Pedro Santos',
-      avatar: 'https://i.imgur.com/6Fq5Arj.jpeg',
+      avatar:
+        'https://images.pexels.com/photos/769772/pexels-photo-769772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
 
     {
       name: 'Larissa Nogueira',
       avatar:
-        'https://images.pexels.com/photos/1043478/pexels-photo-1043478.jpeg',
+        'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
 
     {
       name: 'Gustavo Ribeiro',
-      avatar: 'https://i.imgur.com/9r5Sh9W.jpeg',
+      avatar:
+        'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
   ]
 
