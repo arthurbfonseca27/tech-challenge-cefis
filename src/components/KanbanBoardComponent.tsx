@@ -72,8 +72,7 @@ const KanbanBoardComponent = () => {
   const { titleTask, executerTask, priorityTask, dateTask, projectNameTask } =
     useTaskStore()
 
-  // Fetching default tasks (using Next)
-  // "Fetching" local default tasks -In addition to querying the API, I will also run it locally to ensure that the default tasks are correctly displayed in the hosting environment.
+  // Fetching local and by API default tasks -In addition to querying the API, I will also run it locally to ensure that the default tasks are correctly displayed in the hosting environment.
   useEffect(() => {
     const defaultLocalTasks: Task[] = [
       {
@@ -149,7 +148,7 @@ const KanbanBoardComponent = () => {
     fetchTasks()
   }, [])
 
-  // Fetching default local and API requesters
+  // Fetching local and by API default requesters
   useEffect(() => {
     const defaultLocalRequesters: Requester[] = [
       {
