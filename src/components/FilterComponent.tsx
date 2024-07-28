@@ -93,17 +93,21 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
             {getButtonLabel()}
           </div>
         </MenuButton>
-        <MenuList minWidth="240px">
+        <MenuList minWidth="240px" zIndex="20" _active={{ bg: '#FFFFFF' }}>
           <MenuOptionGroup
             type="checkbox"
             onChange={handleChange}
             value={selectedValues}
           >
-            <MenuItemOption key="all" value="all">
+            <MenuItemOption key="all" value="all" _active={{ bg: '#FFFFFF' }}>
               Todos
             </MenuItemOption>
             {options.map((option, index) => (
-              <MenuItemOption key={index} value={option.value}>
+              <MenuItemOption
+                key={index}
+                value={option.value}
+                _active={{ bg: '#FFFFFF' }}
+              >
                 {option.label}
               </MenuItemOption>
             ))}
