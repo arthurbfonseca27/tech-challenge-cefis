@@ -14,6 +14,8 @@ import {
   Box,
 } from '@chakra-ui/react'
 
+import { useMediaQuery } from 'usehooks-ts'
+
 interface ColorOption {
   value: string
 }
@@ -39,8 +41,10 @@ const ModalNewColumnComponent: React.FC<ModalNewColumnComponentProps> = ({
   selectColor,
   createNewColumn,
 }) => {
+  const isMaxSm = useMediaQuery('(max-width: 640px)')
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size={isMaxSm ? 'sm' : 'md'}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Adicionar coluna</ModalHeader>

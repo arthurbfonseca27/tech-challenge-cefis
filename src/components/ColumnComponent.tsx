@@ -59,7 +59,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
       <div
         ref={setNodeRef}
         style={style}
-        className="h-[520px] w-[500px] rounded-lg border-2 border-[#00A3FF] text-base font-medium opacity-40"
+        className="h-[520px] w-[440px] rounded-lg border-2 border-[#00A3FF] text-base font-medium opacity-40"
       ></div>
     )
   }
@@ -68,7 +68,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
     <div
       ref={setNodeRef}
       style={{ ...style, backgroundColor: column.color }}
-      className="flex w-[500px] flex-col rounded-lg p-3 text-base font-medium"
+      className="flex w-[440px] flex-col rounded-lg p-3 text-base font-medium max-sm:w-[350px] max-sm:justify-center"
     >
       <div className="rounded-lg text-black">
         <div

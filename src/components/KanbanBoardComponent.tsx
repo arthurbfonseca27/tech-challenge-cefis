@@ -451,43 +451,45 @@ const KanbanBoardComponent = () => {
       onDragEnd={onDragEnd}
       onDragOver={onDragOver}
     >
-      <div className="flex flex-row gap-4 pb-2">
-        <Button
-          leftIcon={<IoIosAdd />}
-          variant="outline"
-          borderColor="#67676733"
-          onClick={onOpenNewColumn}
-        >
-          Adicionar coluna
-        </Button>
+      <div className="flex flex-col gap-4 pb-2 max-md:items-center max-md:justify-center max-md:pt-8">
+        <div className="flex flex-row gap-4 max-md:w-[90%] max-md:items-center max-md:justify-center">
+          <Button
+            leftIcon={<IoIosAdd />}
+            variant="outline"
+            borderColor="#67676733"
+            onClick={onOpenNewColumn}
+          >
+            Adicionar coluna
+          </Button>
 
-        <Button
-          leftIcon={<IoIosAdd />}
-          variant="outline"
-          borderColor="#67676733"
-          onClick={handleOpenNewTask}
-        >
-          Adicionar Task
-        </Button>
-        <ModalNewTaskComponent
-          isOpen={isOpenNewTask}
-          onClose={onCloseNewTask}
+          <Button
+            leftIcon={<IoIosAdd />}
+            variant="outline"
+            borderColor="#67676733"
+            onClick={handleOpenNewTask}
+          >
+            Adicionar Task
+          </Button>
+          <ModalNewTaskComponent
+            isOpen={isOpenNewTask}
+            onClose={onCloseNewTask}
+            columns={columns}
+            createTask={createTask}
+          />
+        </div>
+        <SearchComponent
           columns={columns}
-          createTask={createTask}
+          tasks={tasks}
+          onFilterColumnChange={handleFilterColumnChange}
+          onFilterExecuterChange={handleFilterExecuterChange}
+          onFilterRequesterChange={handleFilterRequesterChange}
+          onFilterProjectChange={handleFilterProjectChange}
+          onSearchChange={handleSearchChange}
         />
       </div>
-      <SearchComponent
-        columns={columns}
-        tasks={tasks}
-        onFilterColumnChange={handleFilterColumnChange}
-        onFilterExecuterChange={handleFilterExecuterChange}
-        onFilterRequesterChange={handleFilterRequesterChange}
-        onFilterProjectChange={handleFilterProjectChange}
-        onSearchChange={handleSearchChange}
-      />
 
-      <div className="flex flex-row">
-        <div className="lg:md-fit flex justify-center gap-3 sm:max-w-[50%] sm:flex-col sm:overflow-x-auto md:w-fit md:max-w-none md:flex-col lg:max-w-none lg:flex-row">
+      <div className="flex flex-row max-md:items-center max-md:justify-center">
+        <div className="flex flex-row gap-3 pb-4 max-md:flex-col max-sm:justify-end">
           <SortableContext items={columnsId}>
             {filteredColumns.map((column) => (
               <ColumnComponent

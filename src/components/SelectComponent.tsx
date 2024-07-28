@@ -63,7 +63,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
   }
 
   return (
-    <div className="flex w-4/12 flex-col items-start outline-none">
+    <div className="flex w-full flex-col items-start outline-none max-md:flex-col max-sm:w-full max-sm:justify-start max-sm:justify-center">
       <Box
         position="relative"
         top="2.5"
@@ -85,7 +85,6 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
           fontSize="16px"
           fontWeight="normal"
           width="100%"
-          maxW="240px"
           size="lg"
           _hover={{ bg: '#FFFFFF' }}
           _active={{ bg: '#FFFFFF' }}

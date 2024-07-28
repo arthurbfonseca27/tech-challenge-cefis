@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -42,7 +43,7 @@ body {
 }
 
 ::-webkit-scrollbar:horizontal {
-  height: 10px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {

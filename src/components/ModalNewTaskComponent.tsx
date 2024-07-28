@@ -30,6 +30,7 @@ import { Option, Column, Id } from '@/types'
 import { useTaskStore } from '../store/tasks/index'
 import DatePickerComponent from './DatePickerComponent'
 import { HiMiniPencilSquare } from 'react-icons/hi2'
+import { useMediaQuery } from 'usehooks-ts'
 
 interface ModalComponentProps {
   columns: Column[]
@@ -120,8 +121,10 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
     fetchExecuters()
   }, [])
 
+  const isMaxSm = useMediaQuery('(max-width: 640px)')
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+    <Modal isOpen={isOpen} onClose={onClose} size={isMaxSm ? 'sm' : 'xl'}>
       <div className="h-fit w-full">
         <ModalOverlay />
         <ModalContent>

@@ -70,7 +70,9 @@ const CardComponent = ({ task, deleteTask }: Props) => {
         <div className="flex w-full flex-col py-4 pl-4 pr-6">
           <div className="flex flex-row items-center justify-between gap-2">
             <div className="flex w-fit flex-row items-center gap-5">
-              <p className="max-w-56 truncate">{task.taskName}</p>
+              <p className="max-w-56 truncate max-sm:max-w-40">
+                {task.taskName}
+              </p>
               <Tag
                 bg={`${task.dtt ? '#D8FDD2' : '#F4E3E3'}`}
                 borderRadius="full"
