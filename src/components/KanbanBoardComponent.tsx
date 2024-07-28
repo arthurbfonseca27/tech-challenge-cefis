@@ -42,7 +42,8 @@ const KanbanBoardComponent = () => {
   const defaultLocalRequesters: Requester[] = [
     {
       name: 'Michael Scott',
-      avatar: 'https://i.imgur.com/kP7rK5o.jpeg',
+      avatar:
+        'https://images.pexels.com/photos/2128819/pexels-photo-2128819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
     {
       name: 'Sophia Taylor',
@@ -51,7 +52,8 @@ const KanbanBoardComponent = () => {
     },
     {
       name: 'John Doe',
-      avatar: 'https://bit.ly/john-doe-avatar',
+      avatar:
+        'https://images.pexels.com/photos/1496647/pexels-photo-1496647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     },
     {
       name: 'Emily Clark',
@@ -75,7 +77,7 @@ const KanbanBoardComponent = () => {
       executer: {
         name: 'Carlos Mendes',
         avatar:
-          'https://images.pexels.com/photos/3812944/pexels-photo-3812944.jpeg',
+          'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       },
       projectName: 'User Management System',
       deadline: '5',
@@ -94,7 +96,7 @@ const KanbanBoardComponent = () => {
       executer: {
         name: 'Miguel Santos',
         avatar:
-          'https://images.pexels.com/photos/4725133/pexels-photo-4725133.jpeg',
+          'https://images.pexels.com/photos/2128807/pexels-photo-2128807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       },
       projectName: 'Data Insights Platform',
       deadline: '11',
@@ -108,7 +110,7 @@ const KanbanBoardComponent = () => {
       requester: {
         name: 'Liam White',
         avatar:
-          'https://images.pexels.com/photos/2100063/pexels-photo-2100063.jpeg',
+          'https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       },
       executer: {
         name: 'Ana Pereira',
