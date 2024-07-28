@@ -81,7 +81,7 @@ const KanbanBoardComponent = () => {
           'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       },
       projectName: 'User Management System',
-      deadline: '5',
+      deadline: '0',
       dtt: false,
     },
     {
@@ -119,7 +119,7 @@ const KanbanBoardComponent = () => {
           'https://images.pexels.com/photos/3228213/pexels-photo-3228213.jpeg',
       },
       projectName: 'E-commerce Backend',
-      deadline: '3',
+      deadline: '-1',
       dtt: false,
     },
   ]
