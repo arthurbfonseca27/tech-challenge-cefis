@@ -1,3 +1,5 @@
+// Fetch the task data from /tasks
+
 async function getDefaultTasks() {
   const response = await fetch('http://localhost:3000/api/tasks', {
     method: 'GET',

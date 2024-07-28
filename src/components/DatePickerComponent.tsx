@@ -1,4 +1,3 @@
-// src/components/DatePickerComponent.tsx
 import React from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'

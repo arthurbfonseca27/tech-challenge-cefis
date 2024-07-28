@@ -1,4 +1,4 @@
-// ModalNewColumnComponent.tsx
+// Modal used to create a new column
 import React from 'react'
 import {
   Modal,

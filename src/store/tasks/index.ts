@@ -1,3 +1,4 @@
+// Store file created for Zustand
 import { create } from 'zustand'
 import { Option, Task } from '@/types'
 

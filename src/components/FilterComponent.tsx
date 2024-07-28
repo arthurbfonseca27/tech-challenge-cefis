@@ -1,3 +1,4 @@
+// Components used for filter the available data
 import {
   Menu,
   MenuButton,

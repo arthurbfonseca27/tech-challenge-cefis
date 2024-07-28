@@ -1,4 +1,4 @@
-// src/components/ModalNewTaskComponent.tsx
+// Modal used to create a new task
 import React, { useEffect, useState } from 'react'
 import {
   Modal,
