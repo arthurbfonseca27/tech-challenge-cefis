@@ -64,7 +64,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
   }
 
   return (
-    <div className="flex w-full flex-col items-start outline-none max-md:flex-col max-sm:w-full max-sm:justify-start max-sm:justify-center">
+    <div className="flex w-96 flex-col items-start truncate outline-none max-md:w-72 max-md:flex-col max-md:justify-start max-md:justify-center">
       <Box
         position="relative"
         top="2.5"
@@ -90,7 +90,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
           _hover={{ bg: '#FFFFFF' }}
           _active={{ bg: '#FFFFFF' }}
         >
-          <div className="flex flex-row items-center justify-start truncate">
+          <div className="flex max-w-fit flex-row items-center justify-start truncate">
             {getButtonLabel()}
           </div>
         </MenuButton>

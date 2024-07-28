@@ -104,7 +104,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   return (
     <div className="flex flex-row max-md:justify-center">
       <div className="flex w-screen max-w-[1300px] flex-row items-center justify-start gap-x-4 pb-6 outline-none max-md:max-w-fit max-md:flex-col max-md:justify-center">
-        <div className="w-full pt-5 max-sm:w-full max-sm:justify-center">
+        <div className="w-96 pt-5 max-md:w-72 max-sm:justify-center">
           <InputGroup size="lg" bg="#F5F5F5" borderRadius="lg">
             <InputLeftElement pointerEvents="none">
               <IoIosSearch color="#000000" size={24} />
