@@ -148,6 +148,7 @@ const KanbanBoardComponent = () => {
   const [filterRequester, setFilterRequester] = useState<string[]>([])
   const [filterProject, setFilterProject] = useState<string[]>([])
   const [searchTerm, setSearchTerm] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   // Fetching data using Zustand
   const { titleTask, executerTask, priorityTask, dateTask, projectNameTask } =
@@ -159,8 +160,10 @@ const KanbanBoardComponent = () => {
       try {
         const defaultFetchedTasks = await defaultTasks()
         setTasks([...defaultLocalTasks, ...defaultFetchedTasks])
+        setIsLoading(false)
       } catch (error) {
         setTasks([...defaultLocalTasks])
+        setIsLoading(false)
       }
     }
 
@@ -500,6 +503,7 @@ const KanbanBoardComponent = () => {
                 createTask={createTask}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
+                isLoading={isLoading}
                 tasks={filteredTasks.filter(
                   (task) => task.columnId === column.id,
                 )}
@@ -529,6 +533,7 @@ const KanbanBoardComponent = () => {
                 createTask={createTask}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
+                isLoading={isLoading}
                 tasks={tasks.filter(
                   (task) => task.columnId === activeColumn.id,
                 )}

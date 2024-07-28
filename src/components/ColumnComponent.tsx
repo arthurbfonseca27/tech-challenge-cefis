@@ -1,6 +1,6 @@
 'use-client'
 
-import { IconButton } from '@chakra-ui/react'
+import { IconButton, Button } from '@chakra-ui/react'
 import React, { useMemo, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 import { CSS } from '@dnd-kit/utilities'
@@ -15,6 +15,7 @@ interface ColumnComponentProps {
   createTask: (columnId: Id) => void
   deleteTask: (id: Id) => void
   updateTask: (id: Id, content: string) => void
+  isLoading: boolean
   tasks: Task[]
 }
 
@@ -24,6 +25,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
   updateColumn,
   deleteTask,
   updateTask,
+  isLoading,
   tasks,
 }) => {
   const [editMode, setEditMode] = useState(false)
@@ -59,7 +61,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
       <div
         ref={setNodeRef}
         style={style}
-        className="h-[520px] w-[440px] rounded-lg border-2 border-[#00A3FF] text-base font-medium opacity-40"
+        className="h-[520px] w-[470px] rounded-lg border-2 border-[#00A3FF] text-base font-medium opacity-40"
       ></div>
     )
   }
@@ -68,7 +70,7 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
     <div
       ref={setNodeRef}
       style={{ ...style, backgroundColor: column.color }}
-      className="flex w-[440px] flex-col rounded-lg p-3 text-base font-medium max-sm:w-[350px] max-sm:justify-center"
+      className="flex w-[470px] flex-col rounded-lg p-3 text-base font-medium max-sm:w-[350px] max-sm:justify-center"
     >
       <div className="rounded-lg text-black">
         <div
@@ -123,18 +125,25 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
             )}
           </div>
         </div>
-        <div className="flex h-[450px] flex-grow flex-col gap-1 overflow-y-auto overflow-x-hidden">
-          <SortableContext items={tasksIds}>
-            {tasks.map((task) => (
-              <CardComponent
-                key={task.id}
-                task={task}
-                deleteTask={deleteTask}
-                updateTask={updateTask}
-              />
-            ))}
-          </SortableContext>
-        </div>
+        {isLoading && (
+          <Button variant="ghost" isLoading width="full">
+            Carregando
+          </Button>
+        )}
+        {!isLoading && (
+          <div className="flex h-[450px] flex-grow flex-col gap-1 overflow-y-auto overflow-x-hidden">
+            <SortableContext items={tasksIds}>
+              {tasks.map((task) => (
+                <CardComponent
+                  key={task.id}
+                  task={task}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
+                />
+              ))}
+            </SortableContext>
+          </div>
+        )}
       </div>
     </div>
   )
