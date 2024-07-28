@@ -1,6 +1,6 @@
 'use-client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Id, Task } from '@/types'
 import { MdDeleteOutline, MdOutlineInventory2 } from 'react-icons/md'
 import { Tag, Avatar } from '@chakra-ui/react'
@@ -19,8 +19,6 @@ interface Props {
 }
 
 const CardComponent = ({ task, deleteTask }: Props) => {
-  const [editMode, setEditMode] = useState(false)
-
   const {
     setNodeRef,
     attributes,
@@ -34,16 +32,11 @@ const CardComponent = ({ task, deleteTask }: Props) => {
       type: 'Task',
       task,
     },
-    disabled: editMode,
   })
 
   const style = {
     transition,
     transform: CSS.Transform.toString(transform),
-  }
-
-  const toggleEditMode = () => {
-    setEditMode((prev) => !prev)
   }
 
   if (isDragging) {
@@ -62,10 +55,9 @@ const CardComponent = ({ task, deleteTask }: Props) => {
       style={style}
       {...attributes}
       {...listeners}
-      onClick={toggleEditMode}
-      className="task mb-4 flex h-fit min-h-40 cursor-grab flex-row items-center justify-between overflow-hidden rounded-xl border-black border-transparent bg-[#FFFFFF] hover:border hover:border-[#00A3FF] active:cursor-grabbing"
+      className="task mb-4 flex h-fit min-h-40 cursor-grab flex-row items-center justify-between overflow-hidden rounded-xl border-black border-transparent bg-[#FFFFFF] hover:border hover:border-[#00A3FF] active:cursor-grabbing max-md:h-[170px]"
     >
-      <div className="flex w-full flex-row">
+      <div className="flex w-full flex-row max-md:h-full">
         <PriorityComponent priority={task.priority} />
         <div className="flex w-full flex-col py-4 pl-4 pr-6">
           <div className="flex flex-row items-center justify-between gap-2">
@@ -120,7 +112,7 @@ const CardComponent = ({ task, deleteTask }: Props) => {
             <MdOutlineInventory2 color="#00000066" />
             <p className="max-w-xs truncate">{task.projectName}</p>
           </div>
-          <div className="flex h-12 flex-row items-center justify-between pt-4">
+          <div className="flex h-12 flex-row items-center justify-between pt-4 max-md:flex-col max-md:gap-2">
             {parseInt(task.deadline) <= 0 ? (
               <Tag
                 bg={`${parseInt(task.deadline) === 0 ? '#F2BB6833' : '#F4E3E3'}`}

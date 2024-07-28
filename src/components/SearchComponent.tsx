@@ -1,7 +1,7 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { IoIosSearch } from 'react-icons/io'
 import React, { useState } from 'react'
-import SelectComponent from '@/components/SelectComponent'
+import SelectComponent from '@/components/FilterComponent'
 import { Column, Task } from '@/types'
 
 interface SearchComponentProps {
@@ -25,22 +25,27 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('')
 
+  // Choose all
   const handleColumnChange = (values: string[]) => {
     onFilterColumnChange(values.includes('all') ? [] : values)
   }
 
+  // Filter by executers
   const handleExecuterChange = (values: string[]) => {
     onFilterExecuterChange(values.includes('all') ? [] : values)
   }
 
+  // Filter by requesters
   const handleRequesterChange = (values: string[]) => {
     onFilterRequesterChange(values.includes('all') ? [] : values)
   }
 
+  // Filter by projects names
   const handleProjectChange = (values: string[]) => {
     onFilterProjectChange(values.includes('all') ? [] : values)
   }
 
+  // Filter by text input
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value
     setSearchTerm(term)

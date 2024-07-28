@@ -22,6 +22,7 @@ const DropDownMenuComponent = ({
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement | null>(null)
 
+  // Function used to close the dropdown menu by clicking anywhere on the screen
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {

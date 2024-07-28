@@ -83,6 +83,7 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
     color,
   }))
 
+  // "Fetching" local default executers
   const [executers, setExecuters] = useState<Executer[]>([])
   const localExecuters: Executer[] = [
     {

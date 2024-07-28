@@ -30,10 +30,12 @@ const ColumnComponent: React.FC<ColumnComponentProps> = ({
 }) => {
   const [editMode, setEditMode] = useState(false)
 
+  // Memorize the tasks ids
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id)
   }, [tasks])
 
+  // Use for drag and drop functionalities
   const {
     setNodeRef,
     attributes,

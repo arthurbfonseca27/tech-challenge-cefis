@@ -39,6 +39,7 @@ const KanbanBoardComponent = () => {
     { id: 3, title: 'Concluído', color: '#D8FDD266' },
   ]
 
+  // "Fetching" local default requesters
   const defaultLocalRequesters: Requester[] = [
     {
       name: 'Michael Scott',
@@ -190,22 +191,27 @@ const KanbanBoardComponent = () => {
     setFilterColumnIds(ids)
   }
 
+  // Function to set the filter by executers
   const handleFilterExecuterChange = (values: string[]) => {
     setFilterExecuter(values)
   }
 
+  // Function to set the filter by requesters
   const handleFilterRequesterChange = (values: string[]) => {
     setFilterRequester(values)
   }
 
+  // Function to set the filter by project name
   const handleFilterProjectChange = (values: string[]) => {
     setFilterProject(values)
   }
 
+  // Function to set the filter by text input
   const handleSearchChange = (term: string) => {
     setSearchTerm(term)
   }
 
+  // Function to set the filtered columns
   const filteredColumns = useMemo(() => {
     if (filterColumnIds.length > 0) {
       return columns.filter((column) =>
@@ -215,6 +221,7 @@ const KanbanBoardComponent = () => {
     return columns
   }, [columns, filterColumnIds])
 
+  // Function to set the filtered tasks by ids, executers, requesters and project names
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
       const matchesExecuter =
@@ -272,6 +279,7 @@ const KanbanBoardComponent = () => {
     onClose: onCloseNewTask,
   } = useDisclosure()
 
+  // Memorize the columns ids
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns])
 
   // Use to create a new column
