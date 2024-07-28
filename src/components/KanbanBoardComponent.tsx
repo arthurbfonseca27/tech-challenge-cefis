@@ -39,91 +39,6 @@ const KanbanBoardComponent = () => {
     { id: 3, title: 'Concluído', color: '#D8FDD266' },
   ]
 
-  // "Fetching" local default requesters
-  const defaultLocalRequesters: Requester[] = [
-    {
-      name: 'Michael Scott',
-      avatar:
-        'https://images.pexels.com/photos/2128819/pexels-photo-2128819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-      name: 'Sophia Taylor',
-      avatar:
-        'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg',
-    },
-    {
-      name: 'John Doe',
-      avatar:
-        'https://images.pexels.com/photos/1496647/pexels-photo-1496647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-    {
-      name: 'Emily Clark',
-      avatar:
-        'https://images.pexels.com/photos/1468374/pexels-photo-1468374.jpeg',
-    },
-  ]
-
-  // "Fetching" local default tasks -In addition to querying the API, I will also run it locally to ensure that the default tasks are correctly displayed in the hosting environment.
-  const defaultLocalTasks: Task[] = [
-    {
-      id: generateId(),
-      columnId: 1,
-      priority: 3,
-      taskName: 'Develop user registration',
-      requester: {
-        name: 'Julia Roberts',
-        avatar:
-          'https://images.pexels.com/photos/3348748/pexels-photo-3348748.jpeg',
-      },
-      executer: {
-        name: 'Carlos Mendes',
-        avatar:
-          'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      },
-      projectName: 'User Management System',
-      deadline: '0',
-      dtt: false,
-    },
-    {
-      id: generateId(),
-      columnId: 2,
-      priority: 1,
-      taskName: 'Design analytics dashboard',
-      requester: {
-        name: 'Diana Prince',
-        avatar:
-          'https://images.pexels.com/photos/1385472/pexels-photo-1385472.jpeg',
-      },
-      executer: {
-        name: 'Miguel Santos',
-        avatar:
-          'https://images.pexels.com/photos/2128807/pexels-photo-2128807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      },
-      projectName: 'Data Insights Platform',
-      deadline: '11',
-      dtt: true,
-    },
-    {
-      id: generateId(),
-      columnId: 3,
-      priority: 2,
-      taskName: 'Enhance search performance',
-      requester: {
-        name: 'Liam White',
-        avatar:
-          'https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      },
-      executer: {
-        name: 'Ana Pereira',
-        avatar:
-          'https://images.pexels.com/photos/3228213/pexels-photo-3228213.jpeg',
-      },
-      projectName: 'E-commerce Backend',
-      deadline: '-1',
-      dtt: false,
-    },
-  ]
-
   // "Fetching" colors for the column creation
   const colors = [
     { value: '#C9F5FF66' },
@@ -158,7 +73,68 @@ const KanbanBoardComponent = () => {
     useTaskStore()
 
   // Fetching default tasks (using Next)
+  // "Fetching" local default tasks -In addition to querying the API, I will also run it locally to ensure that the default tasks are correctly displayed in the hosting environment.
   useEffect(() => {
+    const defaultLocalTasks: Task[] = [
+      {
+        id: generateId(),
+        columnId: 1,
+        priority: 3,
+        taskName: 'Develop user registration',
+        requester: {
+          name: 'Julia Roberts',
+          avatar:
+            'https://images.pexels.com/photos/3348748/pexels-photo-3348748.jpeg',
+        },
+        executer: {
+          name: 'Carlos Mendes',
+          avatar:
+            'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        },
+        projectName: 'User Management System',
+        deadline: '0',
+        dtt: false,
+      },
+      {
+        id: generateId(),
+        columnId: 2,
+        priority: 1,
+        taskName: 'Design analytics dashboard',
+        requester: {
+          name: 'Diana Prince',
+          avatar:
+            'https://images.pexels.com/photos/1385472/pexels-photo-1385472.jpeg',
+        },
+        executer: {
+          name: 'Miguel Santos',
+          avatar:
+            'https://images.pexels.com/photos/2128807/pexels-photo-2128807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        },
+        projectName: 'Data Insights Platform',
+        deadline: '11',
+        dtt: true,
+      },
+      {
+        id: generateId(),
+        columnId: 3,
+        priority: 2,
+        taskName: 'Enhance search performance',
+        requester: {
+          name: 'Liam White',
+          avatar:
+            'https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        },
+        executer: {
+          name: 'Ana Pereira',
+          avatar:
+            'https://images.pexels.com/photos/3228213/pexels-photo-3228213.jpeg',
+        },
+        projectName: 'E-commerce Backend',
+        deadline: '-1',
+        dtt: false,
+      },
+    ]
+
     const fetchTasks = async () => {
       try {
         const defaultFetchedTasks = await defaultTasks()
@@ -173,8 +149,31 @@ const KanbanBoardComponent = () => {
     fetchTasks()
   }, [])
 
-  // Fetching default requesters
+  // Fetching default local and API requesters
   useEffect(() => {
+    const defaultLocalRequesters: Requester[] = [
+      {
+        name: 'Michael Scott',
+        avatar:
+          'https://images.pexels.com/photos/2128819/pexels-photo-2128819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      },
+      {
+        name: 'Sophia Taylor',
+        avatar:
+          'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg',
+      },
+      {
+        name: 'John Doe',
+        avatar:
+          'https://images.pexels.com/photos/1496647/pexels-photo-1496647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      },
+      {
+        name: 'Emily Clark',
+        avatar:
+          'https://images.pexels.com/photos/1468374/pexels-photo-1468374.jpeg',
+      },
+    ]
+
     async function fetchRequester() {
       try {
         const data = await defaultRequestersFunction()

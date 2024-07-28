@@ -85,33 +85,34 @@ const ModalNewTaskComponent: React.FC<ModalComponentProps> = ({
 
   // "Fetching" local default executers
   const [executers, setExecuters] = useState<Executer[]>([])
-  const localExecuters: Executer[] = [
-    {
-      name: 'Ana Oliveira',
-      avatar:
-        'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
-    },
-
-    {
-      name: 'Pedro Santos',
-      avatar:
-        'https://images.pexels.com/photos/769772/pexels-photo-769772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-
-    {
-      name: 'Larissa Nogueira',
-      avatar:
-        'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-
-    {
-      name: 'Gustavo Ribeiro',
-      avatar:
-        'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    },
-  ]
 
   useEffect(() => {
+    const localExecuters: Executer[] = [
+      {
+        name: 'Ana Oliveira',
+        avatar:
+          'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
+      },
+
+      {
+        name: 'Pedro Santos',
+        avatar:
+          'https://images.pexels.com/photos/769772/pexels-photo-769772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      },
+
+      {
+        name: 'Larissa Nogueira',
+        avatar:
+          'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      },
+
+      {
+        name: 'Gustavo Ribeiro',
+        avatar:
+          'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      },
+    ]
+
     async function fetchExecuters() {
       try {
         const data = await defaultExecuters()
